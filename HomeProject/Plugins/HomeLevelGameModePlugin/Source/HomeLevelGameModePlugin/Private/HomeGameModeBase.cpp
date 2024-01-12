@@ -2,13 +2,3 @@
 
 
 #include "HomeGameModeBase.h"
-
-AHomeGameModeBase::AHomeGameModeBase()
-{
-
-}
-
-void AHomeGameModeBase::BeginPlay()
-{
-	Super::BeginPlay();
-}
