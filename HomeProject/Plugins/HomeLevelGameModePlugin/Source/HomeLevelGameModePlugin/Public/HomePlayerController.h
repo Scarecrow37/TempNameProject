@@ -14,4 +14,9 @@ class HOMELEVELGAMEMODEPLUGIN_API AHomePlayerController : public APlayerControll
 {
 	GENERATED_BODY()
 	
+public:
+
+protected:
+
+private:
 };
