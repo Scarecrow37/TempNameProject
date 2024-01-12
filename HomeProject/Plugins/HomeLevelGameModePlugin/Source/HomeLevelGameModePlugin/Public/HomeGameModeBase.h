@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+О╩©// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -7,7 +7,7 @@
 #include "HomeGameModeBase.generated.h"
 
 /**
-* HomeLevel ©║╪╜ ╩Г©К╣г╢б GameModeBase Class ют╢о╢ы.
+* HomeLevel Л≈░Л└° Л┌╛Л ╘К░≤К┼■ GameModeBase Class Л·┘К▀┬К▀╓.
 */
 UCLASS()
 class HOMELEVELGAMEMODEPLUGIN_API AHomeGameModeBase : public AGameModeBase
