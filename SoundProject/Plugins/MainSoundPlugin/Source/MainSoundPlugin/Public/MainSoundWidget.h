@@ -6,11 +6,11 @@
 #include "Blueprint/UserWidget.h"
 #include "MainSoundWidget.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDele_MasterVolume, float, m_MasterVolume);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMasterVolumeDelegate, float, WidgetMasterVolume);
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDele_MusicVolume, float, m_MusicVolume);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMusicVolumeDelegate, float, WidgetMusicVolume);
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDele_SFXVolume, float, m_SFXVolume);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMusicSFXDelegate, float, WidgetSFXVolume);
 
 /**
  * SoundWidget 에서 다루게 될 UserWidget 클래스 입니다.
@@ -28,7 +28,7 @@ public:
 	* 전달받은 실수를 통해 전체 볼륨을 조절합니다.
 	* @param Volume 전체 볼륨을 조절할 사운드 크기 값
 	*/
-	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Volume")
 	void SW_SetMasterVolume(float Volume);
 
 	/**
@@ -41,7 +41,7 @@ public:
 	* 전달받은 실수를 통해 음악 볼륨을 조절합니다.
 	* @param Volume 음악 볼륨을 조절할 사운드 크기 값
 	*/
-	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Volume")
 	void SW_SetMusicVolume(float Volume);
 
 	/**
@@ -54,7 +54,7 @@ public:
 	* 전달받은 실수를 통해 효과음 볼륨을 조절합니다.
 	* @param Volume 효과음 볼륨을 조절할 사운드 크기 값
 	*/
-	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Volume")
 	void SW_SetSFXVolume(float Volume);
 
 	/**
@@ -74,23 +74,23 @@ public:
 
 
 	// ======================= [ Delegate Property ]
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "sipal")
-	float m_MasterVolume;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Volume")
+	float WidgetMasterVolume;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "sipal")
-	float m_MusicVolume;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Volume")
+	float WidgetMusicVolume;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "sipal")
-	float m_SFXVolume;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Volume")
+	float WidgetSFXVolume;
 
-	UPROPERTY(BlueprintAssignable, VisibleAnywhere, BlueprintCallable, Category = "sipal")
-	FDele_MasterVolume m_Dele_MasterVolume;
+	UPROPERTY(BlueprintAssignable, VisibleAnywhere, BlueprintCallable, Category = "Volume")
+	FMasterVolumeDelegate OnChangedMasterVolume;
 
-	UPROPERTY(BlueprintAssignable, VisibleAnywhere, BlueprintCallable, Category = "sipal")
-	FDele_MusicVolume m_Dele_MusicVolume;
+	UPROPERTY(BlueprintAssignable, VisibleAnywhere, BlueprintCallable, Category = "Volume")
+	FMusicVolumeDelegate OnMusicMasterVolume;
 
-	UPROPERTY(BlueprintAssignable, VisibleAnywhere, BlueprintCallable, Category = "sipal")
-	FDele_SFXVolume m_Dele_SFXVolume;
+	UPROPERTY(BlueprintAssignable, VisibleAnywhere, BlueprintCallable, Category = "Volume")
+	FMusicSFXDelegate OnSFXMasterVolume;
 
 protected:
 
