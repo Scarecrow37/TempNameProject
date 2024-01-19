@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -13,7 +13,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDele_MusicVolume, float, m_MusicVol
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FDele_SFXVolume, float, m_SFXVolume);
 
 /**
- * SoundWidget ¿¡¼­ ´Ù·ç°Ô µÉ UserWidget Å¬·¡½º ÀÔ´Ï´Ù.
+ * SoundWidget ì—ì„œ ë‹¤ë£¨ê²Œ ë  UserWidget í´ë˜ìŠ¤ ì…ë‹ˆë‹¤.
  */
 UCLASS()
 class MAINSOUNDPLUGIN_API UMainSoundWidget : public UUserWidget
@@ -25,50 +25,50 @@ public:
 
 	// ======================= [ Event Dispatcher Function ]
 	/**
-	* Àü´Ş¹ŞÀº ½Ç¼ö¸¦ ÅëÇØ ÀüÃ¼ º¼·ıÀ» Á¶ÀıÇÕ´Ï´Ù.
-	* @param Volume ÀüÃ¼ º¼·ıÀ» Á¶ÀıÇÒ »ç¿îµå Å©±â °ª
+	* ì „ë‹¬ë°›ì€ ì‹¤ìˆ˜ë¥¼ í†µí•´ ì „ì²´ ë³¼ë¥¨ì„ ì¡°ì ˆí•©ë‹ˆë‹¤.
+	* @param Volume ì „ì²´ ë³¼ë¥¨ì„ ì¡°ì ˆí•  ì‚¬ìš´ë“œ í¬ê¸° ê°’
 	*/
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void SW_SetMasterVolume(float Volume);
 
 	/**
-	* Àü´Ş¹ŞÀº ½Ç¼ö¸¦ ÅëÇØ ÀüÃ¼ º¼·ıÀ» Á¶ÀıÇÕ´Ï´Ù.
-	* @param Volume ÀüÃ¼ º¼·ıÀ» Á¶ÀıÇÒ »ç¿îµå Å©±â °ª
+	* ì „ë‹¬ë°›ì€ ì‹¤ìˆ˜ë¥¼ í†µí•´ ì „ì²´ ë³¼ë¥¨ì„ ì¡°ì ˆí•©ë‹ˆë‹¤.
+	* @param Volume ì „ì²´ ë³¼ë¥¨ì„ ì¡°ì ˆí•  ì‚¬ìš´ë“œ í¬ê¸° ê°’
 	*/
 	void SW_SetMasterVolume_Implementation(float Volume);
 
 	/**
-	* Àü´Ş¹ŞÀº ½Ç¼ö¸¦ ÅëÇØ À½¾Ç º¼·ıÀ» Á¶ÀıÇÕ´Ï´Ù.
-	* @param Volume À½¾Ç º¼·ıÀ» Á¶ÀıÇÒ »ç¿îµå Å©±â °ª
+	* ì „ë‹¬ë°›ì€ ì‹¤ìˆ˜ë¥¼ í†µí•´ ìŒì•… ë³¼ë¥¨ì„ ì¡°ì ˆí•©ë‹ˆë‹¤.
+	* @param Volume ìŒì•… ë³¼ë¥¨ì„ ì¡°ì ˆí•  ì‚¬ìš´ë“œ í¬ê¸° ê°’
 	*/
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void SW_SetMusicVolume(float Volume);
 
 	/**
-	* Àü´Ş¹ŞÀº ½Ç¼ö¸¦ ÅëÇØ À½¾Ç º¼·ıÀ» Á¶ÀıÇÕ´Ï´Ù.
-	* @param Volume À½¾Ç º¼·ıÀ» Á¶ÀıÇÒ »ç¿îµå Å©±â °ª
+	* ì „ë‹¬ë°›ì€ ì‹¤ìˆ˜ë¥¼ í†µí•´ ìŒì•… ë³¼ë¥¨ì„ ì¡°ì ˆí•©ë‹ˆë‹¤.
+	* @param Volume ìŒì•… ë³¼ë¥¨ì„ ì¡°ì ˆí•  ì‚¬ìš´ë“œ í¬ê¸° ê°’
 	*/
 	void SW_SetMusicVolume_Implementation(float Volume);
 
 	/**
-	* Àü´Ş¹ŞÀº ½Ç¼ö¸¦ ÅëÇØ È¿°úÀ½ º¼·ıÀ» Á¶ÀıÇÕ´Ï´Ù.
-	* @param Volume È¿°úÀ½ º¼·ıÀ» Á¶ÀıÇÒ »ç¿îµå Å©±â °ª
+	* ì „ë‹¬ë°›ì€ ì‹¤ìˆ˜ë¥¼ í†µí•´ íš¨ê³¼ìŒ ë³¼ë¥¨ì„ ì¡°ì ˆí•©ë‹ˆë‹¤.
+	* @param Volume íš¨ê³¼ìŒ ë³¼ë¥¨ì„ ì¡°ì ˆí•  ì‚¬ìš´ë“œ í¬ê¸° ê°’
 	*/
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void SW_SetSFXVolume(float Volume);
 
 	/**
-	* Àü´Ş¹ŞÀº ½Ç¼ö¸¦ ÅëÇØ È¿°úÀ½ º¼·ıÀ» Á¶ÀıÇÕ´Ï´Ù.
-	* @param Volume È¿°úÀ½ º¼·ıÀ» Á¶ÀıÇÒ »ç¿îµå Å©±â °ª
+	* ì „ë‹¬ë°›ì€ ì‹¤ìˆ˜ë¥¼ í†µí•´ íš¨ê³¼ìŒ ë³¼ë¥¨ì„ ì¡°ì ˆí•©ë‹ˆë‹¤.
+	* @param Volume íš¨ê³¼ìŒ ë³¼ë¥¨ì„ ì¡°ì ˆí•  ì‚¬ìš´ë“œ í¬ê¸° ê°’
 	*/
 	void SW_SetSFXVolume_Implementation(float Volume);
 
 
 	// ======================= [ Member Function ]
 	/**
-	* Àü´Ş¹ŞÀº ½Ç¼ö¸¦ º¼·ıÀÇ ÃÖ¼ÒÄ¡¿Í ÃÖ´ëÄ¡¸¦ ¹ş¾î³ªÁö ¾Ê°Ô °ËÁõÇÕ´Ï´Ù.
-	* @param Volume À¯Àú°¡ Á¶ÀıÇÏ°íÀÚ ÇÏ´Â º¼·ı ¼öÄ¡
-	* @return °ËÁõ ÀÌÈÄ ³ª¿Â °á°ú, ½Ç¼ö °ª
+	* ì „ë‹¬ë°›ì€ ì‹¤ìˆ˜ë¥¼ ë³¼ë¥¨ì˜ ìµœì†Œì¹˜ì™€ ìµœëŒ€ì¹˜ë¥¼ ë²—ì–´ë‚˜ì§€ ì•Šê²Œ ê²€ì¦í•©ë‹ˆë‹¤.
+	* @param Volume ìœ ì €ê°€ ì¡°ì ˆí•˜ê³ ì í•˜ëŠ” ë³¼ë¥¨ ìˆ˜ì¹˜
+	* @return ê²€ì¦ ì´í›„ ë‚˜ì˜¨ ê²°ê³¼, ì‹¤ìˆ˜ ê°’
 	*/
 	float ValidateVolume(float Volume);
 
