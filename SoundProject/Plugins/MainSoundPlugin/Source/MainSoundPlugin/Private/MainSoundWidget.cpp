@@ -2,8 +2,6 @@
 
 
 #include "MainSoundWidget.h"
-//#include "HomePlayerState.h"
-//#include "HomePlayerController.h"
 
 
 void UMainSoundWidget::SetVolume(float InMasterVolume, float InMusiscVolume, float InSFXVolume)
@@ -13,34 +11,34 @@ void UMainSoundWidget::SetVolume(float InMasterVolume, float InMusiscVolume, flo
 	WidgetSFXVolume = InSFXVolume;
 }
 
-void UMainSoundWidget::SW_SetMasterVolume_Implementation(float Volume)
+void UMainSoundWidget::SetWidgetMasterVolume_Implementation(float Volume)
 {
 	Volume = ValidateVolume(Volume);
 	WidgetMasterVolume = Volume;
 
-	SW_SetMusicVolume(WidgetMasterVolume);
-	SW_SetSFXVolume(WidgetMasterVolume);
+	SetWidgetMusicVolume(WidgetMasterVolume);
+	SetWidgetSFXVolume(WidgetMasterVolume);
 }
 
-void UMainSoundWidget::SW_SetMusicVolume_Implementation(float Volume)
+void UMainSoundWidget::SetWidgetMusicVolume_Implementation(float Volume)
 {
 	Volume = ValidateVolume(Volume);
 	WidgetMusicVolume = Volume;
 
-	if (OnMusicMasterVolume.IsBound())
+	if (OnChangedMusicVolume.IsBound())
 	{
-		OnMusicMasterVolume.Broadcast(WidgetMusicVolume);
+		OnChangedMusicVolume.Broadcast(WidgetMusicVolume);
 	}
 }
 
-void UMainSoundWidget::SW_SetSFXVolume_Implementation(float Volume)
+void UMainSoundWidget::SetWidgetSFXVolume_Implementation(float Volume)
 {
 	Volume = ValidateVolume(Volume);
 	WidgetSFXVolume = Volume;
 
-	if (OnSFXMasterVolume.IsBound())
+	if (OnChangedSFXVolume.IsBound())
 	{
-		OnSFXMasterVolume.Broadcast(WidgetSFXVolume);
+		OnChangedSFXVolume.Broadcast(WidgetSFXVolume);
 	}
 }
 
