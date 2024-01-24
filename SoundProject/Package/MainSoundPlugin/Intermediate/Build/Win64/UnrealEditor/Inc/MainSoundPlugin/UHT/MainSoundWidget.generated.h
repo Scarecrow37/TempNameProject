@@ -23,7 +23,7 @@ MAINSOUNDPLUGIN_API void FMusicVolumeDelegate_DelegateWrapper(const FMulticastSc
 
 
 #define FID_HostProject_Plugins_MainSoundPlugin_Source_MainSoundPlugin_Public_MainSoundWidget_h_13_DELEGATE \
-MAINSOUNDPLUGIN_API void FMusicSFXDelegate_DelegateWrapper(const FMulticastScriptDelegate& MusicSFXDelegate, float WidgetSFXVolume);
+MAINSOUNDPLUGIN_API void FSFXVolumeDelegate_DelegateWrapper(const FMulticastScriptDelegate& SFXVolumeDelegate, float WidgetSFXVolume);
 
 
 #define FID_HostProject_Plugins_MainSoundPlugin_Source_MainSoundPlugin_Public_MainSoundWidget_h_21_SPARSE_DATA
@@ -31,9 +31,9 @@ MAINSOUNDPLUGIN_API void FMusicSFXDelegate_DelegateWrapper(const FMulticastScrip
 #define FID_HostProject_Plugins_MainSoundPlugin_Source_MainSoundPlugin_Public_MainSoundWidget_h_21_EDITOR_ONLY_SPARSE_DATA_PROPERTY_ACCESSORS
 #define FID_HostProject_Plugins_MainSoundPlugin_Source_MainSoundPlugin_Public_MainSoundWidget_h_21_RPC_WRAPPERS_NO_PURE_DECLS \
  \
-	DECLARE_FUNCTION(execSW_SetSFXVolume); \
-	DECLARE_FUNCTION(execSW_SetMusicVolume); \
-	DECLARE_FUNCTION(execSW_SetMasterVolume);
+	DECLARE_FUNCTION(execSetWidgetSFXVolume); \
+	DECLARE_FUNCTION(execSetWidgetMusicVolume); \
+	DECLARE_FUNCTION(execSetWidgetMasterVolume);
 
 
 #define FID_HostProject_Plugins_MainSoundPlugin_Source_MainSoundPlugin_Public_MainSoundWidget_h_21_ACCESSORS

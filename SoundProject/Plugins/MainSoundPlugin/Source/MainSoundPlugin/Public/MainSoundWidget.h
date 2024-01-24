@@ -10,7 +10,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMasterVolumeDelegate, float, Widget
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMusicVolumeDelegate, float, WidgetMusicVolume);
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMusicSFXDelegate, float, WidgetSFXVolume);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FSFXVolumeDelegate, float, WidgetSFXVolume);
 
 /**
  * SoundWidget 에서 다루게 될 UserWidget 클래스 입니다.
@@ -29,39 +29,39 @@ public:
 	* @param Volume 전체 볼륨을 조절할 사운드 크기 값
 	*/
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Volume")
-	void SW_SetMasterVolume(float Volume);
+	void SetWidgetMasterVolume(float Volume);
 
 	/**
 	* 전달받은 실수를 통해 전체 볼륨을 조절합니다.
 	* @param Volume 전체 볼륨을 조절할 사운드 크기 값
 	*/
-	void SW_SetMasterVolume_Implementation(float Volume);
+	void SetWidgetMasterVolume_Implementation(float Volume);
 
 	/**
 	* 전달받은 실수를 통해 음악 볼륨을 조절합니다.
 	* @param Volume 음악 볼륨을 조절할 사운드 크기 값
 	*/
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Volume")
-	void SW_SetMusicVolume(float Volume);
+	void SetWidgetMusicVolume(float Volume);
 
 	/**
 	* 전달받은 실수를 통해 음악 볼륨을 조절합니다.
 	* @param Volume 음악 볼륨을 조절할 사운드 크기 값
 	*/
-	void SW_SetMusicVolume_Implementation(float Volume);
+	void SetWidgetMusicVolume_Implementation(float Volume);
 
 	/**
 	* 전달받은 실수를 통해 효과음 볼륨을 조절합니다.
 	* @param Volume 효과음 볼륨을 조절할 사운드 크기 값
 	*/
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Volume")
-	void SW_SetSFXVolume(float Volume);
+	void SetWidgetSFXVolume(float Volume);
 
 	/**
 	* 전달받은 실수를 통해 효과음 볼륨을 조절합니다.
 	* @param Volume 효과음 볼륨을 조절할 사운드 크기 값
 	*/
-	void SW_SetSFXVolume_Implementation(float Volume);
+	void SetWidgetSFXVolume_Implementation(float Volume);
 
 
 	// ======================= [ Member Function ]
@@ -87,10 +87,10 @@ public:
 	FMasterVolumeDelegate OnChangedMasterVolume;
 
 	UPROPERTY(BlueprintAssignable, VisibleAnywhere, BlueprintCallable, Category = "Volume")
-	FMusicVolumeDelegate OnMusicMasterVolume;
+	FMusicVolumeDelegate OnChangedMusicVolume;
 
 	UPROPERTY(BlueprintAssignable, VisibleAnywhere, BlueprintCallable, Category = "Volume")
-	FMusicSFXDelegate OnSFXMasterVolume;
+	FSFXVolumeDelegate OnChangedSFXVolume;
 
 protected:
 
