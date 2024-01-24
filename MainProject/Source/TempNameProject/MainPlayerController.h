@@ -90,10 +90,10 @@ private:
 	// ======================= [ Member Property ]
 	// UI Property
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (AllowPrivateAccess = "true"), Category = "UI")
-	TSubclassOf<UUserWidget> HudWidgetClass;
+	TSubclassOf<UUserWidget> HomeWidgetClass;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (AllowPrivateAccess = "true"), Category = "UI")
-	TObjectPtr<UUserWidget> HudWidget;
+	TObjectPtr<UUserWidget> HomeWidget;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (AllowPrivateAccess = "true"), Category = "UI")
 	TSubclassOf<UUserWidget> SoundWidgetClass;
@@ -115,11 +115,9 @@ private:
 
 	// UAudioComponent Property
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (AllowPrivateAccess = "true"), Category = "AudioComponents")
-	TObjectPtr<UAudioComponent> BackgroundMusic;
+	TObjectPtr<UAudioComponent> BackgroundMusicComponent;
 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (AllowPrivateAccess = "true"), Category = "AudioComponents")
-	TObjectPtr<UAudioComponent> SampleSFX;
-
-	FTimerHandle th_InitWidget;
+	TObjectPtr<UAudioComponent> SFXComponent;
 
 };

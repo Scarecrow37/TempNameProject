@@ -11,11 +11,14 @@
 
 AMainPlayerController::AMainPlayerController()
 {
-	BackgroundMusic = CreateDefaultSubobject<UAudioComponent>(TEXT("BackgroundMusic"));
-	BackgroundMusic->SetupAttachment(RootComponent);
+	BackgroundMusicComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("BackgroundMusicComponent"));
+	BackgroundMusicComponent->SetupAttachment(RootComponent);
 
-	SampleSFX = CreateDefaultSubobject<UAudioComponent>(TEXT("SampleSFX"));
-	SampleSFX->SetupAttachment(RootComponent);
+	SFXComponent = CreateDefaultSubobject<UAudioComponent>(TEXT("SFXComponent"));
+	SFXComponent->SetupAttachment(RootComponent);
+
+	BackgroundMusicComponent->SetVolumeMultiplier(0);
+	SFXComponent->SetVolumeMultiplier(0);
 }
 
 
@@ -23,29 +26,26 @@ void AMainPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//check(HudWidgetClass);
+	//check(HomeWidgetClass);
 
-	//HudWidget = CreateWidget<UUserWidget>(GetWorld(), HudWidgetClass);	
-	//HudWidget->AddToViewport();
+	//HomeWidget = CreateWidget<UUserWidget>(GetWorld(), HomeWidgetClass);
+	//HomeWidget->AddToViewport();
 
 	APlayerController* Player0 = GetWorld()->GetFirstPlayerController();
 	if (!IsValid(Player0))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, TEXT("Player0 Failed !"));
 		return;
 	}
 
 	Player0->SetInputMode(FInputModeUIOnly());
 	Player0->bShowMouseCursor = true;
 
-	InitializeWidget();
-	InitializeAudio();
+	//InitializeAudio();
+	//InitializeWidget();
 }
-
 
 void AMainPlayerController::ApplyMasterVolume(float Volume)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Green, TEXT("[ AMainPlayerController ] ApplyMasterVolume"));
 	AMainPlayerState* PS = Cast<AMainPlayerState>(PlayerState);
 	if (!IsValid(PS))
 		return;
@@ -60,11 +60,7 @@ void AMainPlayerController::ApplyMusicVolume(float Volume)
 	if (!IsValid(PS))
 		return;
 
-	UGameplayStatics::SetSoundMixClassOverride(this, SoundMix, SoundMusicClass, PS->GetMusicVolume(), 1.0f, 1.0f, true);
-	UGameplayStatics::PushSoundMixModifier(this, SoundMix);
-
-	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Yellow,
-		FString::Printf(TEXT("ApplyMusicVolume = %f"), PS->GetMusicVolume()));
+	BackgroundMusicComponent->SetVolumeMultiplier(Volume);
 }
 
 void AMainPlayerController::ApplySFXVolume(float Volume)
@@ -73,19 +69,24 @@ void AMainPlayerController::ApplySFXVolume(float Volume)
 	if (!IsValid(PS))
 		return;
 
-	UGameplayStatics::SetSoundMixClassOverride(this, SoundMix, SoundSFXClass, PS->GetSFXVolume(), 1.0f, 1.0f, true);
-	UGameplayStatics::PushSoundMixModifier(this, SoundMix);
-
-	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Yellow,
-		FString::Printf(TEXT("ApplySFXVolume = %f"), PS->GetSFXVolume()));
+	SFXComponent->SetVolumeMultiplier(Volume);
+	SFXComponent->Play();
 }
-
 
 void AMainPlayerController::InitializeAudio()
 {
-	ApplyMasterVolume(1.0f);
-	BackgroundMusic->Play();
-	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Yellow, TEXT("InitializeAudio Done"));
+	AMainPlayerState* PS = Cast<AMainPlayerState>(PlayerState);
+	if (!IsValid(PS))
+		return;
+
+	UGameplayStatics::SetSoundMixClassOverride(this, SoundMix, SoundMusicClass, PS->GetMusicVolume(), 1.0f, 1.0f, true);
+	UGameplayStatics::PushSoundMixModifier(this, SoundMix);
+
+	UGameplayStatics::SetSoundMixClassOverride(this, SoundMix, SoundSFXClass, PS->GetSFXVolume(), 1.0f, 1.0f, true);
+	UGameplayStatics::PushSoundMixModifier(this, SoundMix);
+
+	BackgroundMusicComponent->SetVolumeMultiplier(1);
+	BackgroundMusicComponent->Play();
 }
 
 void AMainPlayerController::InitializeWidget()
@@ -104,25 +105,20 @@ void AMainPlayerController::InitializeWidget()
 			return;
 		}
 		US->OnChangedMasterVolume.AddDynamic(this, &AMainPlayerController::OnSetMasterVolume);
-		US->OnMusicMasterVolume.AddDynamic(this, &AMainPlayerController::OnSetMusicVolume);
-		US->OnSFXMasterVolume.AddDynamic(this, &AMainPlayerController::OnSetSFXVolume);
+		US->OnChangedMusicVolume.AddDynamic(this, &AMainPlayerController::OnSetMusicVolume);
+		US->OnChangedSFXVolume.AddDynamic(this, &AMainPlayerController::OnSetSFXVolume);
 
 		US->SetVolume(MasterVolume, MusicVolume, SFXVolume);
 		SoundWidget = US;
 		US->AddToViewport();
 
-		GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Yellow, TEXT("InitializeWidget Done"));
 		return;
 	}
-
-	//FTimerManager& timeManager = GetWorld()->GetTimerManager();
-	//timeManager.SetTimer(th_InitWidget, this, &AMainPlayerController::InitializeWidget, 0.5f, false);
 }
 
 
 void AMainPlayerController::OnSetMasterVolume_Implementation(float Volume)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Yellow, TEXT("[ AMainPlayerController ] OnSetMasterVolume"));
 	AMainPlayerState* PS = Cast<AMainPlayerState>(PlayerState);
 	if (!IsValid(PS))
 		return;
@@ -133,7 +129,6 @@ void AMainPlayerController::OnSetMasterVolume_Implementation(float Volume)
 
 void AMainPlayerController::OnSetMusicVolume_Implementation(float Volume)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Yellow, TEXT("[ AMainPlayerController ] OnSetMusicVolume"));
 	AMainPlayerState* PS = Cast<AMainPlayerState>(PlayerState);
 	if (!IsValid(PS))
 		return;
@@ -144,26 +139,21 @@ void AMainPlayerController::OnSetMusicVolume_Implementation(float Volume)
 
 void AMainPlayerController::OnSetSFXVolume_Implementation(float Volume)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Yellow, TEXT("[ AMainPlayerController ] OnSetSFXVolume"));
 	AMainPlayerState* PS = Cast<AMainPlayerState>(PlayerState);
 	if (!IsValid(PS))
 		return;
 
 	PS->SetSFXVolume(Volume);
 	ApplySFXVolume(Volume);
-	SampleSFX->Play();
 }
 
 void AMainPlayerController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
-	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::White, TEXT("(Server) OnPossess"));
-
 	ResClientPossess();
 }
 
 void AMainPlayerController::ResClientPossess_Implementation()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::White, TEXT("(Client) OnPossess"));
 }
