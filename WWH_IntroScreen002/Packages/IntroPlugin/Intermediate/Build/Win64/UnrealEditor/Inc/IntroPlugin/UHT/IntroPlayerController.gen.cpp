@@ -45,9 +45,9 @@ void EmptyLinkFunctionForGeneratedCodeIntroPlayerController() {}
 #endif
 		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_IntroIMC;
 #if WITH_METADATA
-		static const UECodeGen_Private::FMetaDataPairParam NewProp_IA_Skip_MetaData[];
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_SkippingKey_MetaData[];
 #endif
-		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_IA_Skip;
+		static const UECodeGen_Private::FObjectPtrPropertyParams NewProp_SkippingKey;
 #if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_IsIntroSkipped_MetaData[];
 #endif
@@ -64,23 +64,20 @@ void EmptyLinkFunctionForGeneratedCodeIntroPlayerController() {}
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AIntroPlayerController_Statics::DependentSingletons) < 16);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AIntroPlayerController_Statics::Class_MetaDataParams[] = {
-		{ "Comment", "/**\n *\n */" },
+		{ "Comment", "/**\n *\xef\xbf\xbd\xef\xbf\xbd\xc6\xae\xef\xbf\xbd\xef\xbf\xbd \xc8\xad\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xc6\xae\xef\xbf\xbd\xd1\xb7\xef\xbf\xbd\n */" },
 		{ "HideCategories", "Collision Rendering Transformation" },
 		{ "IncludePath", "IntroPlayerController.h" },
 		{ "ModuleRelativePath", "Public/IntroPlayerController.h" },
+		{ "ToolTip", "\xef\xbf\xbd\xef\xbf\xbd\xc6\xae\xef\xbf\xbd\xef\xbf\xbd \xc8\xad\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xc3\xb7\xef\xbf\xbd\xef\xbf\xbd\xcc\xbe\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xc6\xae\xef\xbf\xbd\xd1\xb7\xef\xbf\xbd" },
 	};
 #endif
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IntroWidget_MetaData[] = {
-		{ "AllowPrivateAccess", "true" },
-		{ "Category", "[Custom]UIs" },
-		{ "Comment", "//Widget\n" },
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Public/IntroPlayerController.h" },
-		{ "ToolTip", "Widget" },
 	};
 #endif
-	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IntroWidget = { "IntroWidget", nullptr, (EPropertyFlags)0x004000000008000d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AIntroPlayerController, IntroWidget), Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IntroWidget_MetaData), Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IntroWidget_MetaData) };
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IntroWidget = { "IntroWidget", nullptr, (EPropertyFlags)0x0040000000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AIntroPlayerController, IntroWidget), Z_Construct_UClass_UUserWidget_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IntroWidget_MetaData), Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IntroWidget_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IntroWidgetClass_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
@@ -98,13 +95,13 @@ void EmptyLinkFunctionForGeneratedCodeIntroPlayerController() {}
 #endif
 	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IntroIMC = { "IntroIMC", nullptr, (EPropertyFlags)0x0044000000000005, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AIntroPlayerController, IntroIMC), Z_Construct_UClass_UInputMappingContext_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IntroIMC_MetaData), Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IntroIMC_MetaData) };
 #if WITH_METADATA
-	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IA_Skip_MetaData[] = {
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_SkippingKey_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
 		{ "Category", "[Custom]Inputs" },
 		{ "ModuleRelativePath", "Public/IntroPlayerController.h" },
 	};
 #endif
-	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IA_Skip = { "IA_Skip", nullptr, (EPropertyFlags)0x0044000000000005, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AIntroPlayerController, IA_Skip), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IA_Skip_MetaData), Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IA_Skip_MetaData) };
+	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_SkippingKey = { "SkippingKey", nullptr, (EPropertyFlags)0x0044000000000005, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(AIntroPlayerController, SkippingKey), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_SkippingKey_MetaData), Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_SkippingKey_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IsIntroSkipped_MetaData[] = {
 		{ "AllowPrivateAccess", "true" },
@@ -116,12 +113,12 @@ void EmptyLinkFunctionForGeneratedCodeIntroPlayerController() {}
 	{
 		((AIntroPlayerController*)Obj)->IsIntroSkipped = 1;
 	}
-	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IsIntroSkipped = { "IsIntroSkipped", nullptr, (EPropertyFlags)0x0040000000000005, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AIntroPlayerController), &Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IsIntroSkipped_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IsIntroSkipped_MetaData), Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IsIntroSkipped_MetaData) };
+	const UECodeGen_Private::FBoolPropertyParams Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IsIntroSkipped = { "IsIntroSkipped", nullptr, (EPropertyFlags)0x0040000000000014, UECodeGen_Private::EPropertyGenFlags::Bool | UECodeGen_Private::EPropertyGenFlags::NativeBool, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, sizeof(bool), sizeof(AIntroPlayerController), &Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IsIntroSkipped_SetBit, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IsIntroSkipped_MetaData), Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IsIntroSkipped_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_AIntroPlayerController_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IntroWidget,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IntroWidgetClass,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IntroIMC,
-		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IA_Skip,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_SkippingKey,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_AIntroPlayerController_Statics::NewProp_IsIntroSkipped,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_AIntroPlayerController_Statics::StaticCppClassTypeInfo = {
@@ -158,15 +155,15 @@ void EmptyLinkFunctionForGeneratedCodeIntroPlayerController() {}
 	AIntroPlayerController::AIntroPlayerController(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(AIntroPlayerController);
 	AIntroPlayerController::~AIntroPlayerController() {}
-	struct Z_CompiledInDeferFile_FID_Work_WWH_IntroScreen002_Packages_IntroPlugin_HostProject_Plugins_IntroPlugin_Source_IntroPlugin_Public_IntroPlayerController_h_Statics
+	struct Z_CompiledInDeferFile_FID_Work_TempNameProject_WWH_IntroScreen002_Packages_IntroPlugin_HostProject_Plugins_IntroPlugin_Source_IntroPlugin_Public_IntroPlayerController_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Work_WWH_IntroScreen002_Packages_IntroPlugin_HostProject_Plugins_IntroPlugin_Source_IntroPlugin_Public_IntroPlayerController_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_AIntroPlayerController, AIntroPlayerController::StaticClass, TEXT("AIntroPlayerController"), &Z_Registration_Info_UClass_AIntroPlayerController, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AIntroPlayerController), 2825411934U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Work_TempNameProject_WWH_IntroScreen002_Packages_IntroPlugin_HostProject_Plugins_IntroPlugin_Source_IntroPlugin_Public_IntroPlayerController_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_AIntroPlayerController, AIntroPlayerController::StaticClass, TEXT("AIntroPlayerController"), &Z_Registration_Info_UClass_AIntroPlayerController, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AIntroPlayerController), 431997788U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Work_WWH_IntroScreen002_Packages_IntroPlugin_HostProject_Plugins_IntroPlugin_Source_IntroPlugin_Public_IntroPlayerController_h_3907285577(TEXT("/Script/IntroPlugin"),
-		Z_CompiledInDeferFile_FID_Work_WWH_IntroScreen002_Packages_IntroPlugin_HostProject_Plugins_IntroPlugin_Source_IntroPlugin_Public_IntroPlayerController_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Work_WWH_IntroScreen002_Packages_IntroPlugin_HostProject_Plugins_IntroPlugin_Source_IntroPlugin_Public_IntroPlayerController_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Work_TempNameProject_WWH_IntroScreen002_Packages_IntroPlugin_HostProject_Plugins_IntroPlugin_Source_IntroPlugin_Public_IntroPlayerController_h_1374777272(TEXT("/Script/IntroPlugin"),
+		Z_CompiledInDeferFile_FID_Work_TempNameProject_WWH_IntroScreen002_Packages_IntroPlugin_HostProject_Plugins_IntroPlugin_Source_IntroPlugin_Public_IntroPlayerController_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Work_TempNameProject_WWH_IntroScreen002_Packages_IntroPlugin_HostProject_Plugins_IntroPlugin_Source_IntroPlugin_Public_IntroPlayerController_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

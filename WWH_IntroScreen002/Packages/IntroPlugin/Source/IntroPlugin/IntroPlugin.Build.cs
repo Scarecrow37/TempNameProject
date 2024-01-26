@@ -25,7 +25,7 @@ public class IntroPlugin : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core", "InputCore", "MoviePlayer", "EnhancedInput", "UMG", "MediaAssets"
+				"Core"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -38,6 +38,11 @@ public class IntroPlugin : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
+				"InputCore", 
+				"MoviePlayer", 
+				"EnhancedInput",
+				"UMG", 
+				"MediaAssets"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);

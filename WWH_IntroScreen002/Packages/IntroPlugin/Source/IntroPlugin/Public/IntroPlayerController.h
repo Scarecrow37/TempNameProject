@@ -11,7 +11,7 @@ class UInputMappingContext;
 class UInputAction;
 
 /**
- *
+ *인트로 화면 플레이어 컨트롤러
  */
 UCLASS()
 class AIntroPlayerController : public APlayerController
@@ -23,24 +23,29 @@ protected:
 	virtual void BeginPlay() override;
 
 
-private: //Widget
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "[Custom]UIs", meta = (AllowPrivateAccess = "true"))
+private:
+	UPROPERTY()
 	UUserWidget* IntroWidget;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "[Custom]UIs", meta = (AllowPrivateAccess = "true"))
 	TSubclassOf<UUserWidget> IntroWidgetClass;
 
-	// Skip Keys, bool Variable
+	/**
+	*스킵 키 바인딩 함수
+	*/
 	virtual void SetupInputComponent();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "[Custom]Inputs", meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UInputMappingContext> IntroIMC;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "[Custom]Inputs", meta = (AllowPrivateAccess = "true"))
-	TObjectPtr<UInputAction> IA_Skip;
+	TObjectPtr<UInputAction> SkippingKey;
 
+	/**
+	*스킵 발동 함수
+	*/
 	virtual void IntroSkip();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "[Custom]Variables", meta = (AllowPrivateAccess = "true"))
+	UPROPERTY(BlueprintReadOnly, Category = "[Custom]Variables", meta = (AllowPrivateAccess = "true"))
 	bool IsIntroSkipped;
 };

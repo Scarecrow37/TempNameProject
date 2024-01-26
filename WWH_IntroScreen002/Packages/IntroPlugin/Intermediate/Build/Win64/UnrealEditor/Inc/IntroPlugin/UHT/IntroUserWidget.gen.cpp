@@ -46,7 +46,9 @@ void EmptyLinkFunctionForGeneratedCodeIntroUserWidget() {}
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UFunction_UIntroUserWidget_OnVideoEnd_Statics::Function_MetaDataParams[] = {
 		{ "Category", "[Custom]VideoOptions" },
+		{ "Comment", "/**\n\x09*On End Reached(BP)\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xce\xb5\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc2\xb7\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc7\xb4\xef\xbf\xbd Event.\n\x09*/" },
 		{ "ModuleRelativePath", "Public/IntroUserWidget.h" },
+		{ "ToolTip", "On End Reached(BP)\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xce\xb5\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc2\xb7\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc7\xb4\xef\xbf\xbd Event." },
 	};
 #endif
 	const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_UIntroUserWidget_OnVideoEnd_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_UIntroUserWidget, nullptr, "OnVideoEnd", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x0C020C00, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_UIntroUserWidget_OnVideoEnd_Statics::Function_MetaDataParams), Z_Construct_UFunction_UIntroUserWidget_OnVideoEnd_Statics::Function_MetaDataParams) };
@@ -89,32 +91,31 @@ void EmptyLinkFunctionForGeneratedCodeIntroUserWidget() {}
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UIntroUserWidget_Statics::DependentSingletons) < 16);
 	const FClassFunctionLinkInfo Z_Construct_UClass_UIntroUserWidget_Statics::FuncInfo[] = {
-		{ &Z_Construct_UFunction_UIntroUserWidget_OnVideoEnd, "OnVideoEnd" }, // 3431277208
+		{ &Z_Construct_UFunction_UIntroUserWidget_OnVideoEnd, "OnVideoEnd" }, // 2644448138
 	};
 	static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_UIntroUserWidget_Statics::FuncInfo) < 2048);
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UIntroUserWidget_Statics::Class_MetaDataParams[] = {
-		{ "Comment", "/**\n *\n */" },
+		{ "Comment", "/**\n *\xef\xbf\xbd\xef\xbf\xbd\xc6\xae\xef\xbf\xbd\xef\xbf\xbd \xc8\xad\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\n */" },
 		{ "IncludePath", "IntroUserWidget.h" },
 		{ "ModuleRelativePath", "Public/IntroUserWidget.h" },
+		{ "ToolTip", "\xef\xbf\xbd\xef\xbf\xbd\xc6\xae\xef\xbf\xbd\xef\xbf\xbd \xc8\xad\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd" },
 	};
 #endif
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UIntroUserWidget_Statics::NewProp_IntroMediaPlayer_MetaData[] = {
-		{ "AllowPrivateAccess", "true" },
 		{ "Category", "[Custom]VideoOptions" },
 		{ "ModuleRelativePath", "Public/IntroUserWidget.h" },
 	};
 #endif
-	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UIntroUserWidget_Statics::NewProp_IntroMediaPlayer = { "IntroMediaPlayer", nullptr, (EPropertyFlags)0x0044000000000005, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UIntroUserWidget, IntroMediaPlayer), Z_Construct_UClass_UMediaPlayer_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UIntroUserWidget_Statics::NewProp_IntroMediaPlayer_MetaData), Z_Construct_UClass_UIntroUserWidget_Statics::NewProp_IntroMediaPlayer_MetaData) };
+	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UIntroUserWidget_Statics::NewProp_IntroMediaPlayer = { "IntroMediaPlayer", nullptr, (EPropertyFlags)0x0024080000000005, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UIntroUserWidget, IntroMediaPlayer), Z_Construct_UClass_UMediaPlayer_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UIntroUserWidget_Statics::NewProp_IntroMediaPlayer_MetaData), Z_Construct_UClass_UIntroUserWidget_Statics::NewProp_IntroMediaPlayer_MetaData) };
 #if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_UIntroUserWidget_Statics::NewProp_IntroMediaSource_MetaData[] = {
-		{ "AllowPrivateAccess", "true" },
 		{ "Category", "[Custom]VideoOptions" },
 		{ "ModuleRelativePath", "Public/IntroUserWidget.h" },
 	};
 #endif
-	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UIntroUserWidget_Statics::NewProp_IntroMediaSource = { "IntroMediaSource", nullptr, (EPropertyFlags)0x0044000000000005, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UIntroUserWidget, IntroMediaSource), Z_Construct_UClass_UMediaSource_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UIntroUserWidget_Statics::NewProp_IntroMediaSource_MetaData), Z_Construct_UClass_UIntroUserWidget_Statics::NewProp_IntroMediaSource_MetaData) };
+	const UECodeGen_Private::FObjectPtrPropertyParams Z_Construct_UClass_UIntroUserWidget_Statics::NewProp_IntroMediaSource = { "IntroMediaSource", nullptr, (EPropertyFlags)0x0024080000000005, UECodeGen_Private::EPropertyGenFlags::Object | UECodeGen_Private::EPropertyGenFlags::ObjectPtr, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(UIntroUserWidget, IntroMediaSource), Z_Construct_UClass_UMediaSource_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_UIntroUserWidget_Statics::NewProp_IntroMediaSource_MetaData), Z_Construct_UClass_UIntroUserWidget_Statics::NewProp_IntroMediaSource_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_UIntroUserWidget_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UIntroUserWidget_Statics::NewProp_IntroMediaPlayer,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_UIntroUserWidget_Statics::NewProp_IntroMediaSource,
@@ -153,15 +154,15 @@ void EmptyLinkFunctionForGeneratedCodeIntroUserWidget() {}
 	UIntroUserWidget::UIntroUserWidget(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer) {}
 	DEFINE_VTABLE_PTR_HELPER_CTOR(UIntroUserWidget);
 	UIntroUserWidget::~UIntroUserWidget() {}
-	struct Z_CompiledInDeferFile_FID_Work_WWH_IntroScreen002_Packages_IntroPlugin_HostProject_Plugins_IntroPlugin_Source_IntroPlugin_Public_IntroUserWidget_h_Statics
+	struct Z_CompiledInDeferFile_FID_Work_TempNameProject_WWH_IntroScreen002_Packages_IntroPlugin_HostProject_Plugins_IntroPlugin_Source_IntroPlugin_Public_IntroUserWidget_h_Statics
 	{
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
-	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Work_WWH_IntroScreen002_Packages_IntroPlugin_HostProject_Plugins_IntroPlugin_Source_IntroPlugin_Public_IntroUserWidget_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_UIntroUserWidget, UIntroUserWidget::StaticClass, TEXT("UIntroUserWidget"), &Z_Registration_Info_UClass_UIntroUserWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UIntroUserWidget), 656799487U) },
+	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Work_TempNameProject_WWH_IntroScreen002_Packages_IntroPlugin_HostProject_Plugins_IntroPlugin_Source_IntroPlugin_Public_IntroUserWidget_h_Statics::ClassInfo[] = {
+		{ Z_Construct_UClass_UIntroUserWidget, UIntroUserWidget::StaticClass, TEXT("UIntroUserWidget"), &Z_Registration_Info_UClass_UIntroUserWidget, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(UIntroUserWidget), 4233965760U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Work_WWH_IntroScreen002_Packages_IntroPlugin_HostProject_Plugins_IntroPlugin_Source_IntroPlugin_Public_IntroUserWidget_h_2955831477(TEXT("/Script/IntroPlugin"),
-		Z_CompiledInDeferFile_FID_Work_WWH_IntroScreen002_Packages_IntroPlugin_HostProject_Plugins_IntroPlugin_Source_IntroPlugin_Public_IntroUserWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Work_WWH_IntroScreen002_Packages_IntroPlugin_HostProject_Plugins_IntroPlugin_Source_IntroPlugin_Public_IntroUserWidget_h_Statics::ClassInfo),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_Work_TempNameProject_WWH_IntroScreen002_Packages_IntroPlugin_HostProject_Plugins_IntroPlugin_Source_IntroPlugin_Public_IntroUserWidget_h_3713044651(TEXT("/Script/IntroPlugin"),
+		Z_CompiledInDeferFile_FID_Work_TempNameProject_WWH_IntroScreen002_Packages_IntroPlugin_HostProject_Plugins_IntroPlugin_Source_IntroPlugin_Public_IntroUserWidget_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_Work_TempNameProject_WWH_IntroScreen002_Packages_IntroPlugin_HostProject_Plugins_IntroPlugin_Source_IntroPlugin_Public_IntroUserWidget_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

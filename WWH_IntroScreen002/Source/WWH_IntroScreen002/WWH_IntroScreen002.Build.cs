@@ -8,7 +8,7 @@ public class WWH_IntroScreen002 : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "MoviePlayer", "EnhancedInput", "UMG", "MediaAssets", "IntroPlugin" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

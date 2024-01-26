@@ -30,7 +30,7 @@ void AIntroPlayerController::SetupInputComponent()
 
 	if (UEnhancedInputComponent* UEIC = Cast<UEnhancedInputComponent>(InputComponent))
 	{
-		UEIC->BindAction(IA_Skip, ETriggerEvent::Started, this, &AIntroPlayerController::IntroSkip);
+		UEIC->BindAction(SkippingKey, ETriggerEvent::Started, this, &AIntroPlayerController::IntroSkip);
 	}
 }
 
@@ -39,7 +39,7 @@ void AIntroPlayerController::IntroSkip()
 	IsIntroSkipped = true;
 	if (IsIntroSkipped)
 	{
-		UIntroUserWidget* UISW = Cast<UIntroUserWidget>(IntroWidget);
-		UISW->OnVideoEnd();
+		UIntroUserWidget* UIUW = Cast<UIntroUserWidget>(IntroWidget);
+		UIUW->OnVideoEnd();
 	}
 }
