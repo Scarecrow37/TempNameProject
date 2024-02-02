@@ -11,7 +11,7 @@ class UInputMappingContext;
 class UInputAction;
 
 /**
- *ÀÎÆ®·Î È­¸é ÇÃ·¹ÀÌ¾î ÄÁÆ®·Ñ·¯
+ *ì¸íŠ¸ë¡œ í™”ë©´ í”Œë ˆì´ì–´ ì»¨íŠ¸ë¡¤ëŸ¬
  */
 UCLASS()
 class AIntroPlayerController : public APlayerController
@@ -31,7 +31,7 @@ private:
 	TSubclassOf<UUserWidget> IntroWidgetClass;
 
 	/**
-	*½ºÅµ Å° ¹ÙÀÎµù ÇÔ¼ö
+	*ìŠ¤í‚µ í‚¤ ë°”ì¸ë”© í•¨ìˆ˜
 	*/
 	virtual void SetupInputComponent();
 
@@ -42,7 +42,7 @@ private:
 	TObjectPtr<UInputAction> SkippingKey;
 
 	/**
-	*½ºÅµ ¹ßµ¿ ÇÔ¼ö
+	*ìŠ¤í‚µ ë°œë™ í•¨ìˆ˜
 	*/
 	virtual void IntroSkip();
 
