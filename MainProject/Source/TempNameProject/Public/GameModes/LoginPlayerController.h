@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "LoginPlayerController.generated.h"
 
+class ISocketInterface;
 class ULoginPanel;
 /**
  * 
@@ -21,9 +22,19 @@ protected:
 	
 	virtual void BeginPlay() override;
 
+	virtual void ConnectServer();
+
+	virtual void ShowLoginWidget();
+
 private:
+	bool bIsConnected;
+	
 	TObjectPtr<ULoginPanel> LoginWidget;
+	
+	TScriptInterface<ISocketInterface> SocketBox;
 
 	UFUNCTION()
 	void BindLoginRequest(const FText& ID, const FText& Password);
+
+	void InitializeSocketBox();
 };

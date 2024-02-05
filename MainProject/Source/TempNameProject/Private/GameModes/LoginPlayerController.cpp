@@ -5,18 +5,43 @@
 #include "UMG/LoginPanel.h"
 #include "Sockets.h"
 #include "SocketSubsystem.h"
+#include "Interfaces/SocketInterface.h"
 #include "Interfaces/IPv4/IPv4Address.h"
 
 
 ALoginPlayerController::ALoginPlayerController()
 {
 	SetShowMouseCursor(true);
-	
 }
 
 void ALoginPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
+	InitializeSocketBox();
+	ConnectServer();
+	ShowLoginWidget();
+}
+
+void ALoginPlayerController::ConnectServer()
+{
+	const TSharedPtr<FSocket> Socket = MakeShareable(
+		ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(TEXT("Stream"), TEXT("Client Socket")));
+	const FString AddressString = TEXT("127.0.0.1");
+	FIPv4Address IP;
+	FIPv4Address::Parse(AddressString, IP);
+	constexpr int32 Port = 12345;
+	const TSharedRef<FInternetAddr> Address = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
+	Address->SetIp(IP.Value);
+	Address->SetPort(Port);
+	bIsConnected = Socket->Connect(*Address);
+	if (bIsConnected)
+	{
+		SocketBox->SetSocket(Socket);
+	}
+}
+
+void ALoginPlayerController::ShowLoginWidget()
+{
 	if (IsValid(LoginWidgetClass))
 	{
 		LoginWidget = TObjectPtr<ULoginPanel>(CreateWidget<ULoginPanel>(this, LoginWidgetClass, FName("LoginWidget")));
@@ -34,18 +59,19 @@ void ALoginPlayerController::BeginPlay()
 
 void ALoginPlayerController::BindLoginRequest(const FText& ID, const FText& Password)
 {
-	TSharedPtr<FSocket> Socket = MakeShareable(
-		ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(TEXT("Stream"), TEXT("Client Socket")));
-	FString AddressString = TEXT("127.0.0.1");
-	FIPv4Address IP;
-	FIPv4Address::Parse(AddressString, IP);
-	constexpr int32 Port = 12345;
-	const TSharedRef<FInternetAddr> Address = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
-	Address->SetIp(IP.Value);
-	Address->SetPort(Port);
-	
-	bool IsConnected = Socket->Connect(*Address);
-	
-	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, FString::Printf(TEXT("%hhd"), IsConnected));
-	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, FString::Printf(TEXT("ID : %s / Password : %s"), *ID.ToString(), *Password.ToString()));
+	if(!bIsConnected)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Server is disconnected."))
+		return;
+	}
+	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, FString::Printf(TEXT("%hhd"), bIsConnected));
+	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red,
+	                                 FString::Printf(
+		                                 TEXT("ID : %s / Password : %s"), *ID.ToString(), *Password.ToString()));
+}
+
+void ALoginPlayerController::InitializeSocketBox()
+{
+	SocketBox.SetInterface(Cast<ISocketInterface>(GetGameInstance()));
+	SocketBox.SetObject(GetGameInstance());
 }
