@@ -64,10 +64,11 @@ void ALoginPlayerController::BindLoginRequest(const FText& ID, const FText& Pass
 		UE_LOG(LogTemp, Warning, TEXT("Server is disconnected."))
 		return;
 	}
-	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, FString::Printf(TEXT("%hhd"), bIsConnected));
-	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red,
-	                                 FString::Printf(
-		                                 TEXT("ID : %s / Password : %s"), *ID.ToString(), *Password.ToString()));
+	FString Message = FString::Printf(TEXT("ID : %s / Password : %s"), *ID.ToString(), *Password.ToString());
+	TArray<TCHAR> Data = Message.GetCharArray();
+	int32 Sent;	
+	SocketBox->GetSocket()->Send((uint8*)Data.GetData(), Message.Len(), Sent);
+	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, Message);
 }
 
 void ALoginPlayerController::InitializeSocketBox()
