@@ -1,12 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MainPlayerController.h"
+#include "GameModes/MainPlayerController.h"
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/AudioComponent.h"
 #include "Blueprint/UserWidget.h"
-#include "MainPlayerState.h"
+#include "GameModes/MainPlayerState.h"
 #include "MainSoundWidget.h"
 
 AMainPlayerController::AMainPlayerController()
