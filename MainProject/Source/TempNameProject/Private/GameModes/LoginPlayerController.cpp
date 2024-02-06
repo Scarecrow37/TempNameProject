@@ -8,6 +8,7 @@
 #include "Interfaces/NicknameInterface.h"
 #include "Interfaces/SocketInterface.h"
 #include "Interfaces/IPv4/IPv4Address.h"
+#include "Kismet/GameplayStatics.h"
 #include "Network/Packet.h"
 
 
@@ -91,6 +92,7 @@ void ALoginPlayerController::BindLoginRequest(const FText& ID, const FText& Pass
 			FString Nickname(ResponseData.Nickname);
 			NicknameBox->SetNickname(Nickname);
 			// Next Level;
+			UGameplayStatics::OpenLevelBySoftObjectPtr(GetWorld(), NextLevel);
 		}
 		else
 		{

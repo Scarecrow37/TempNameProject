@@ -18,6 +18,9 @@ class TEMPNAMEPROJECT_API ALoginPlayerController : public APlayerController
 	GENERATED_BODY()
 	ALoginPlayerController();
 protected:
+	UPROPERTY(EditDefaultsOnly, Category = "Level")
+	TSoftObjectPtr<UWorld> NextLevel;
+	
 	UPROPERTY(EditDefaultsOnly, Category = "Widget")
 	TSubclassOf<ULoginPanel> LoginWidgetClass;
 	

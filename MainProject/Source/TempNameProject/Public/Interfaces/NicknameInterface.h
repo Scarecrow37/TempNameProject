@@ -20,6 +20,5 @@ class TEMPNAMEPROJECT_API INicknameInterface
 	GENERATED_BODY()
 public:
 	virtual void SetNickname(const FString Nickname) = 0;
-	UFUNCTION(BlueprintCallable, Category = "Nickname")
 	virtual FString GetNickname() = 0;
 };
