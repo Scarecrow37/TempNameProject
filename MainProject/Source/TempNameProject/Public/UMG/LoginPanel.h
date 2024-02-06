@@ -6,6 +6,8 @@
 #include "Blueprint/UserWidget.h"
 #include "LoginPanel.generated.h"
 
+class UMessageModal;
+class UCircularThrobber;
 class UButton;
 class ULabeledInput;
 
@@ -22,6 +24,18 @@ public:
 	UPROPERTY(BlueprintAssignable, Category="Button|Event")
 	FOnLoginButtonClickedEvent OnLoginRequested;
 	
+	UFUNCTION(BlueprintCallable)
+	void StartLoading() const;
+
+	UFUNCTION(BlueprintCallable)
+	void StopLoading() const;
+
+	UFUNCTION(BlueprintCallable)
+	void ShowLoginFailMessage() const;
+
+	UFUNCTION(BlueprintCallable)
+	void HideLoginFailMessage() const;
+	
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Widget", meta = (BindWidget))
 	TObjectPtr<ULabeledInput> IdWidget;
@@ -31,12 +45,21 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Widget", meta = (BindWidget))
 	TObjectPtr<UButton> LoginButton;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Widget", meta = (BindWidget))
+	TObjectPtr<UCircularThrobber> LoadingWidget;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Widget", meta = (BindWidget))
+	TObjectPtr<UMessageModal> MessageWidget;
 	
 	virtual void NativePreConstruct() override;
 
 private:
 	UFUNCTION()
 	void BindLoginClicked();
+
+	UFUNCTION()
+	void BindCloseMessage();
 
 	bool BoundLogin;
 };

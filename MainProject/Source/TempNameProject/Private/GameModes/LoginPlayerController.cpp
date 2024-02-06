@@ -68,6 +68,7 @@ void ALoginPlayerController::BindLoginRequest(const FText& ID, const FText& Pass
 		UE_LOG(LogTemp, Warning, TEXT("Server is disconnected."))
 		return;
 	}
+	LoginWidget->StartLoading();
 	int32 Sent = 0;
 	FHeader SendHeader;
 	SendHeader.Size = sizeof(FRequestLoginData);
@@ -87,16 +88,18 @@ void ALoginPlayerController::BindLoginRequest(const FText& ID, const FText& Pass
 	{
 		FResponseLoginData ResponseData = {};
 		SocketBox->GetSocket()->Recv((uint8*)&ResponseData, sizeof(ResponseData), Read, ESocketReceiveFlags::WaitAll);
+		
+		LoginWidget->StopLoading();
+		
 		if (ResponseData.IsSuccess)
 		{
 			FString Nickname(ResponseData.Nickname);
 			NicknameBox->SetNickname(Nickname);
-			// Next Level;
 			UGameplayStatics::OpenLevelBySoftObjectPtr(GetWorld(), NextLevel);
 		}
 		else
 		{
-			UE_LOG(LogTemp, Warning, TEXT("Login Fail."));
+			LoginWidget->ShowLoginFailMessage();
 		}
 	}
 }
