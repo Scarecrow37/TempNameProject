@@ -7,6 +7,7 @@
 #include "SocketSubsystem.h"
 #include "Interfaces/SocketInterface.h"
 #include "Interfaces/IPv4/IPv4Address.h"
+#include "Network/Packet.h"
 
 
 ALoginPlayerController::ALoginPlayerController()
@@ -64,11 +65,36 @@ void ALoginPlayerController::BindLoginRequest(const FText& ID, const FText& Pass
 		UE_LOG(LogTemp, Warning, TEXT("Server is disconnected."))
 		return;
 	}
-	FString Message = FString::Printf(TEXT("ID : %s / Password : %s"), *ID.ToString(), *Password.ToString());
-	TArray<TCHAR> Data = Message.GetCharArray();
-	int32 Sent;	
-	SocketBox->GetSocket()->Send((uint8*)Data.GetData(), Message.Len(), Sent);
-	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, Message);
+	int32 Sent = 0;
+	FHeader SendHeader;
+	SendHeader.Size = sizeof(FRequestLoginData);
+	SendHeader.Type = RequestLogin;
+	SocketBox->GetSocket()->Send((uint8*)&SendHeader, sizeof(SendHeader), Sent);
+	
+	FRequestLoginData RequestData = {};
+	StringToBytes(ID.ToString(), (uint8*)&RequestData.Id, sizeof(RequestData.Id));
+	StringToBytes(Password.ToString(), (uint8*)&RequestData.Password, sizeof(RequestData.Password));
+	SocketBox->GetSocket()->Send((uint8*)&RequestData, sizeof(RequestData), Sent);
+
+	FHeader ReceiveHeader = {};
+	int32 Read = 0;
+	SocketBox->GetSocket()->Recv((uint8*)&ReceiveHeader, sizeof(ReceiveHeader), Read, ESocketReceiveFlags::WaitAll);
+
+	if(ReceiveHeader.Type == ResponseLogin)
+	{
+		FResponseLoginData ResponseData = {};
+		SocketBox->GetSocket()->Recv((uint8*)&ResponseData, sizeof(ResponseData), Read, ESocketReceiveFlags::WaitAll);
+		if (ResponseData.IsSuccess)
+		{
+			FString Nickname(ResponseData.Nickname);
+			GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Magenta, Nickname);
+			// Next Level;
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Login Fail."));
+		}
+	}
 }
 
 void ALoginPlayerController::InitializeSocketBox()
