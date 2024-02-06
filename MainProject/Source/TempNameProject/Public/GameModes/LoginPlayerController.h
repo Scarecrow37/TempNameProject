@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "LoginPlayerController.generated.h"
 
+class INicknameInterface;
 class ISocketInterface;
 class ULoginPanel;
 /**
@@ -32,9 +33,12 @@ private:
 	TObjectPtr<ULoginPanel> LoginWidget;
 	
 	TScriptInterface<ISocketInterface> SocketBox;
+	TScriptInterface<INicknameInterface> NicknameBox;
 
 	UFUNCTION()
 	void BindLoginRequest(const FText& ID, const FText& Password);
 
 	void InitializeSocketBox();
+
+	void InitializeNicknameBox();
 };

@@ -12,3 +12,13 @@ TSharedPtr<FSocket> UTempGameInstance::GetSocket()
 {
 	return ServerSocket;
 }
+
+void UTempGameInstance::SetNickname(const FString InNickname)
+{
+	Nickname = InNickname;
+}
+
+FString UTempGameInstance::GetNickname()
+{
+	return Nickname;
+}

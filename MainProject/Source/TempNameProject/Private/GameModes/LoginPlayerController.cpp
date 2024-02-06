@@ -5,6 +5,7 @@
 #include "UMG/LoginPanel.h"
 #include "Sockets.h"
 #include "SocketSubsystem.h"
+#include "Interfaces/NicknameInterface.h"
 #include "Interfaces/SocketInterface.h"
 #include "Interfaces/IPv4/IPv4Address.h"
 #include "Network/Packet.h"
@@ -19,6 +20,7 @@ void ALoginPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 	InitializeSocketBox();
+	InitializeNicknameBox();
 	ConnectServer();
 	ShowLoginWidget();
 }
@@ -87,7 +89,7 @@ void ALoginPlayerController::BindLoginRequest(const FText& ID, const FText& Pass
 		if (ResponseData.IsSuccess)
 		{
 			FString Nickname(ResponseData.Nickname);
-			GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Magenta, Nickname);
+			NicknameBox->SetNickname(Nickname);
 			// Next Level;
 		}
 		else
@@ -101,4 +103,10 @@ void ALoginPlayerController::InitializeSocketBox()
 {
 	SocketBox.SetInterface(Cast<ISocketInterface>(GetGameInstance()));
 	SocketBox.SetObject(GetGameInstance());
+}
+
+void ALoginPlayerController::InitializeNicknameBox()
+{
+	NicknameBox.SetInterface(Cast<INicknameInterface>(GetGameInstance()));
+	NicknameBox.SetObject(GetGameInstance());
 }

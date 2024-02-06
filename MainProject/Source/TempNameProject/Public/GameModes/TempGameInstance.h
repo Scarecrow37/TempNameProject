@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+#include "Interfaces/NicknameInterface.h"
 #include "Interfaces/SocketInterface.h"
 #include "TempGameInstance.generated.h"
 
@@ -11,7 +12,7 @@
  * 
  */
 UCLASS()
-class TEMPNAMEPROJECT_API UTempGameInstance : public UGameInstance, public ISocketInterface
+class TEMPNAMEPROJECT_API UTempGameInstance : public UGameInstance, public ISocketInterface, public INicknameInterface
 {
 	GENERATED_BODY()
 
@@ -28,6 +29,24 @@ public:
 	 */
 	virtual TSharedPtr<FSocket> GetSocket() override;
 
+	/**
+	 * Server에서 가져온 Nickname을 Instance에 저장합니다.
+	 * @param InNickname Database에서 가져온 Nickname
+	 */
+	virtual void SetNickname(const FString InNickname) override;
+
+	/**
+	 * Instance에 저장되어 있는 Nickname을 가져옵니다.
+	 * @return Instance에 저장되어 있는 Nickname
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Nickname")
+	virtual FString GetNickname() override;
+
+	
 protected:
 	TSharedPtr<FSocket> ServerSocket;
+
+private:
+	UPROPERTY(BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	FString Nickname;
 };
