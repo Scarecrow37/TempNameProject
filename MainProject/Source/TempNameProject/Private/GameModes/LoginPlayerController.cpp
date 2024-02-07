@@ -3,6 +3,7 @@
 
 #include "GameModes/LoginPlayerController.h"
 #include "UMG/LoginPanel.h"
+#include "UMG/CreateAccountPanel.h"
 #include "Sockets.h"
 #include "SocketSubsystem.h"
 #include "Interfaces/NicknameInterface.h"
@@ -23,7 +24,7 @@ void ALoginPlayerController::BeginPlay()
 	InitializeSocketBox();
 	InitializeNicknameBox();
 	ConnectServer();
-	ShowLoginWidget();
+	InitializeWidgets();
 }
 
 void ALoginPlayerController::ConnectServer()
@@ -44,7 +45,7 @@ void ALoginPlayerController::ConnectServer()
 	}
 }
 
-void ALoginPlayerController::ShowLoginWidget()
+void ALoginPlayerController::InitializeWidgets()
 {
 	if (IsValid(LoginWidgetClass))
 	{
@@ -52,11 +53,22 @@ void ALoginPlayerController::ShowLoginWidget()
 		if (IsValid(LoginWidget))
 		{
 			LoginWidget->OnLoginRequested.AddDynamic(this, &ALoginPlayerController::BindLoginRequest);
+			LoginWidget->OnOpenCreateAccountPanelRequested.AddDynamic(this, &ALoginPlayerController::BindOpenCreateAccountRequest);
 			FInputModeUIOnly InputMode;
 			InputMode.SetWidgetToFocus(LoginWidget->TakeWidget());
 			InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
-			Super::SetInputMode(InputMode);
+			SetInputMode(InputMode);
 			LoginWidget->AddToViewport();
+		}
+	}
+
+	if (IsValid(CreateAccountWidgetClass))
+	{
+		CreateAccountWidget = TObjectPtr<UCreateAccountPanel>(CreateWidget<UCreateAccountPanel>(this, CreateAccountWidgetClass, FName("CreateWidget")));
+		if (IsValid(CreateAccountWidget))
+		{
+			CreateAccountWidget->OnCreateAccountRequested.AddDynamic(this, &ALoginPlayerController::BindCreateAccountRequest);
+			CreateAccountWidget->OnOpenLoginPanelRequested.AddDynamic(this, &ALoginPlayerController::BindOpenLoginRequest);
 		}
 	}
 }
@@ -95,13 +107,30 @@ void ALoginPlayerController::BindLoginRequest(const FText& ID, const FText& Pass
 		{
 			FString Nickname(ResponseData.Nickname);
 			NicknameBox->SetNickname(Nickname);
-			UGameplayStatics::OpenLevelBySoftObjectPtr(GetWorld(), NextLevel);
+			LoginWidget->ShowSuccessMessage();
+			// UGameplayStatics::OpenLevelBySoftObjectPtr(GetWorld(), NextLevel);
 		}
 		else
 		{
-			LoginWidget->ShowLoginFailMessage();
+			LoginWidget->ShowFailMessage();
 		}
 	}
+}
+
+void ALoginPlayerController::BindCreateAccountRequest(const FText& ID, const FText& Password, const FText& Nickname)
+{
+}
+
+void ALoginPlayerController::BindOpenCreateAccountRequest()
+{
+	LoginWidget->RemoveFromParent();
+	CreateAccountWidget->AddToViewport();
+}
+
+void ALoginPlayerController::BindOpenLoginRequest()
+{
+	CreateAccountWidget->RemoveFromParent();
+	LoginWidget->AddToViewport();
 }
 
 void ALoginPlayerController::InitializeSocketBox()

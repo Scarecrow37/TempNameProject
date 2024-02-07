@@ -3,63 +3,42 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Blueprint/UserWidget.h"
+#include "AuthorizationPanel.h"
 #include "LoginPanel.generated.h"
 
-class UMessageModal;
-class UCircularThrobber;
-class UButton;
-class ULabeledInput;
-
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnLoginButtonClickedEvent, const FText&, ID, const FText&, Password);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnLoginRequestEvent, const FText&, ID, const FText&, Password);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnOpenCreateAccountPanelRequestEvent);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnOpenNextLevelRequestEevent);
 
 /**
  * 
  */
 UCLASS()
-class TEMPNAMEPROJECT_API ULoginPanel : public UUserWidget
+class TEMPNAMEPROJECT_API ULoginPanel : public UAuthorizationPanel
 {
 	GENERATED_BODY()
 public:
 	UPROPERTY(BlueprintAssignable, Category="Button|Event")
-	FOnLoginButtonClickedEvent OnLoginRequested;
+	FOnLoginRequestEvent OnLoginRequested;
 	
-	UFUNCTION(BlueprintCallable)
-	void StartLoading() const;
-
-	UFUNCTION(BlueprintCallable)
-	void StopLoading() const;
-
-	UFUNCTION(BlueprintCallable)
-	void ShowLoginFailMessage() const;
-
-	UFUNCTION(BlueprintCallable)
-	void HideLoginFailMessage() const;
+	UPROPERTY(BlueprintAssignable, Category="Button|Event")
+	FOnOpenCreateAccountPanelRequestEvent OnOpenCreateAccountPanelRequested;
 	
-protected:
-	UPROPERTY(EditDefaultsOnly, Category = "Widget", meta = (BindWidget))
-	TObjectPtr<ULabeledInput> IdWidget;
-	
-	UPROPERTY(EditDefaultsOnly, Category = "Widget", meta = (BindWidget))
-	TObjectPtr<ULabeledInput> PasswordWidget;
-	
-	UPROPERTY(EditDefaultsOnly, Category = "Widget", meta = (BindWidget))
-	TObjectPtr<UButton> LoginButton;
+	UPROPERTY(BlueprintAssignable, Category="Button|Event")
+	FOnOpenNextLevelRequestEevent OnOpenNextLevelRequested;
 
-	UPROPERTY(EditDefaultsOnly, Category = "Widget", meta = (BindWidget))
-	TObjectPtr<UCircularThrobber> LoadingWidget;
-
-	UPROPERTY(EditDefaultsOnly, Category = "Widget", meta = (BindWidget))
-	TObjectPtr<UMessageModal> MessageWidget;
+	UPROPERTY(EditDefaultsOnly, Category = "Widget", meta = (BindWIdget))
+	TObjectPtr<UButton> CreateAccountButton;
 	
 	virtual void NativePreConstruct() override;
 
 private:
-	UFUNCTION()
-	void BindLoginClicked();
+	virtual void BindConfirmClicked() override;
+
+	virtual void BindCloseSuccessMessage() override;
+	
+	virtual void BindCloseFailMessage() override;
 
 	UFUNCTION()
-	void BindCloseMessage();
-
-	bool BoundLogin;
+	void BindCreateAccountClicked();
 };

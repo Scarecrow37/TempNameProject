@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerController.h"
 #include "LoginPlayerController.generated.h"
 
+class UCreateAccountPanel;
 class INicknameInterface;
 class ISocketInterface;
 class ULoginPanel;
@@ -23,23 +24,38 @@ protected:
 	
 	UPROPERTY(EditDefaultsOnly, Category = "Widget")
 	TSubclassOf<ULoginPanel> LoginWidgetClass;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Widget")
+	TSubclassOf<UCreateAccountPanel> CreateAccountWidgetClass;
 	
 	virtual void BeginPlay() override;
 
 	virtual void ConnectServer();
 
-	virtual void ShowLoginWidget();
+	virtual void InitializeWidgets();
 
 private:
 	bool bIsConnected;
 	
 	TObjectPtr<ULoginPanel> LoginWidget;
 	
+	TObjectPtr<UCreateAccountPanel> CreateAccountWidget;
+	
 	TScriptInterface<ISocketInterface> SocketBox;
+	
 	TScriptInterface<INicknameInterface> NicknameBox;
 
 	UFUNCTION()
 	void BindLoginRequest(const FText& ID, const FText& Password);
+	
+	UFUNCTION()
+	void BindCreateAccountRequest(const FText& ID, const FText& Password, const FText& Nickname);
+	
+	UFUNCTION()
+	void BindOpenCreateAccountRequest();
+	
+	UFUNCTION()
+	void BindOpenLoginRequest();
 
 	void InitializeSocketBox();
 

@@ -7,46 +7,17 @@
 #include "Components/CircularThrobber.h"
 #include "UMG/MessageModal.h"
 
-void ULoginPanel::StartLoading() const
-{
-	LoadingWidget.Get()->SetVisibility(ESlateVisibility::Visible);
-}
-
-void ULoginPanel::StopLoading() const
-{
-	LoadingWidget.Get()->SetVisibility(ESlateVisibility::Collapsed);
-}
-
-void ULoginPanel::ShowLoginFailMessage() const
-{
-	MessageWidget.Get()->SetVisibility(ESlateVisibility::Visible);
-}
-
-void ULoginPanel::HideLoginFailMessage() const
-{
-	MessageWidget.Get()->SetVisibility(ESlateVisibility::Collapsed);
-}
-
 void ULoginPanel::NativePreConstruct()
 {
 	Super::NativePreConstruct();
-	if (IsValid(LoadingWidget))
+
+	if(IsValid(CreateAccountButton))
 	{
-		LoadingWidget.Get()->SetVisibility(ESlateVisibility::Collapsed);
-	}
-	if (IsValid(MessageWidget))
-	{
-		MessageWidget.Get()->SetVisibility(ESlateVisibility::Collapsed);
-		MessageWidget->OnCloseModalRequest.AddDynamic(this, &ULoginPanel::BindCloseMessage);
-	}
-	if (IsValid(LoginButton) && !BoundLogin)
-	{
-		LoginButton->OnClicked.AddDynamic(this, &ULoginPanel::BindLoginClicked);
-		BoundLogin = true;
+		CreateAccountButton->OnClicked.AddDynamic(this, &ULoginPanel::ULoginPanel::BindCreateAccountClicked);
 	}
 }
 
-void ULoginPanel::BindLoginClicked()
+void ULoginPanel::BindConfirmClicked()
 {
 	const FText ID = IdWidget->GetValue();
 	const FText Password = PasswordWidget->GetValue();
@@ -54,7 +25,17 @@ void ULoginPanel::BindLoginClicked()
 	OnLoginRequested.Broadcast(ID, Password);
 }
 
-void ULoginPanel::BindCloseMessage()
+void ULoginPanel::BindCloseSuccessMessage()
 {
-	MessageWidget.Get()->SetVisibility(ESlateVisibility::Collapsed);
+	OnOpenNextLevelRequested.Broadcast();
+}
+
+void ULoginPanel::BindCloseFailMessage()
+{
+	FailMessageWidget.Get()->SetVisibility(ESlateVisibility::Collapsed);
+}
+
+void ULoginPanel::BindCreateAccountClicked()
+{
+	OnOpenCreateAccountPanelRequested.Broadcast();
 }
