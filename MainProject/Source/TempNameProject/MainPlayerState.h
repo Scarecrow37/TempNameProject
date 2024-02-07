@@ -7,6 +7,7 @@
 #include "GameFramework/PlayerState.h"
 #include "MainPlayerState.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FUserNameDelegate, const FString&, UserName);
 
 /**
  * 
@@ -55,6 +56,21 @@ public:
 	*/
 	void SetSFXVolume(float Volume);
 
+	/**
+	* 유저명의 변경시 사용하는 Replicate 함수 입니다.
+	*/
+	UFUNCTION()
+	void OnRep_UserName();
+
+	void SetUserName(const FString& NewUserName);
+
+	/**
+	* 유저의 이름을 가져옵니다.
+	* @return 유저 명(FString)
+	*/
+	UFUNCTION(BlueprintPure)
+	FString GetStrUserName() { return UserName; };
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -73,4 +89,16 @@ private:
 
 	UPROPERTY(VisibleAnywhere, Category = "Volume")
 	float SFXVolume;
+
+	FTimerHandle th_BindName;
+
+
+	// ======================= [ Delegate With Replicate Property ]
+	UPROPERTY(ReplicatedUsing = OnRep_UserName)
+	FString UserName;
+
+	UPROPERTY(BlueprintAssignable, VisibleAnywhere, BlueprintCallable)
+	FUserNameDelegate OnUserName;
+
+
 };

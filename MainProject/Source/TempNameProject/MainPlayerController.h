@@ -64,6 +64,22 @@ public:
 	virtual void OnSetSFXVolume_Implementation(float Volume);
 
 
+	// FString 은 사이즈가 크기 때문에 복사가 아닌 아래처럼 주소로 넘겨주는게 좋습니다.
+	//UFUNCTION(Server, Reliable)
+	//void RequestChangeUserName(const FString& UserName);
+
+	//void BindPlayerState(class ALobbyPlayerState* LobbyPlayerState);
+
+	//void UpdateUserName();
+
+	//UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
+	//void OnUpdateUserName(const FString& UserName);
+
+	//void OnUpdateUserName_Implementation(const FString& UserName);
+
+	//FTimerHandle th_BindPlayerState;
+
+
 protected:
 	virtual void BeginPlay() override;
 
@@ -72,7 +88,7 @@ protected:
 private:
 	// ======================= [ Replication Function ]
 	UFUNCTION(Client, Reliable)
-	void ResClientPossess();
+	void ResponseClientPossess();
 
 
 	// ======================= [ Member Function ]

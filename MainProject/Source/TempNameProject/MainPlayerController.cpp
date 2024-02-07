@@ -8,6 +8,9 @@
 #include "Blueprint/UserWidget.h"
 #include "MainPlayerState.h"
 #include "MainSoundWidget.h"
+#include "TempNameProject/MainGameInstance.h"
+#include "LobbyPlayerState.h"
+
 
 AMainPlayerController::AMainPlayerController()
 {
@@ -21,15 +24,28 @@ AMainPlayerController::AMainPlayerController()
 	SFXComponent->SetVolumeMultiplier(0);
 }
 
+void AMainPlayerController::OnPossess(APawn* InPawn)
+{
+	Super::OnPossess(InPawn);
+
+	ResponseClientPossess();
+}
+
+void AMainPlayerController::ResponseClientPossess_Implementation()
+{
+	UMainGameInstance* pGameInst = Cast<UMainGameInstance>(GetGameInstance());
+	if (!IsValid(pGameInst))
+		return;
+}
 
 void AMainPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//check(HomeWidgetClass);
+	check(HomeWidgetClass);
 
-	//HomeWidget = CreateWidget<UUserWidget>(GetWorld(), HomeWidgetClass);
-	//HomeWidget->AddToViewport();
+	HomeWidget = CreateWidget<UUserWidget>(GetWorld(), HomeWidgetClass);
+	HomeWidget->AddToViewport();
 
 	APlayerController* Player0 = GetWorld()->GetFirstPlayerController();
 	if (!IsValid(Player0))
@@ -40,8 +56,8 @@ void AMainPlayerController::BeginPlay()
 	Player0->SetInputMode(FInputModeUIOnly());
 	Player0->bShowMouseCursor = true;
 
-	//InitializeAudio();
-	//InitializeWidget();
+	InitializeAudio();
+	InitializeWidget();
 }
 
 void AMainPlayerController::ApplyMasterVolume(float Volume)
@@ -145,15 +161,4 @@ void AMainPlayerController::OnSetSFXVolume_Implementation(float Volume)
 
 	PS->SetSFXVolume(Volume);
 	ApplySFXVolume(Volume);
-}
-
-void AMainPlayerController::OnPossess(APawn* InPawn)
-{
-	Super::OnPossess(InPawn);
-
-	ResClientPossess();
-}
-
-void AMainPlayerController::ResClientPossess_Implementation()
-{
 }
