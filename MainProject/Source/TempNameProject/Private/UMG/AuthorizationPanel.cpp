@@ -56,6 +56,6 @@ void UAuthorizationPanel::NativePreConstruct()
 	}
 	if (IsValid(ConfirmButton))
 	{
-		ConfirmButton->OnClicked.AddDynamic(this, &UAuthorizationPanel::BindCloseSuccessMessage);
+		ConfirmButton->OnClicked.AddDynamic(this, &UAuthorizationPanel::BindConfirmClicked);
 	}
 }

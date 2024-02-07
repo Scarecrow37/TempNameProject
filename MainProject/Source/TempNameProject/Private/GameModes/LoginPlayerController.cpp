@@ -54,6 +54,7 @@ void ALoginPlayerController::InitializeWidgets()
 		{
 			LoginWidget->OnLoginRequested.AddDynamic(this, &ALoginPlayerController::BindLoginRequest);
 			LoginWidget->OnOpenCreateAccountPanelRequested.AddDynamic(this, &ALoginPlayerController::BindOpenCreateAccountRequest);
+			LoginWidget->OnOpenNextLevelRequested.AddDynamic(this, &ALoginPlayerController::BindOpenNextLevelRequest);
 			FInputModeUIOnly InputMode;
 			InputMode.SetWidgetToFocus(LoginWidget->TakeWidget());
 			InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
@@ -81,44 +82,38 @@ void ALoginPlayerController::BindLoginRequest(const FText& ID, const FText& Pass
 		return;
 	}
 	LoginWidget->StartLoading();
-	int32 Sent = 0;
-	FHeader SendHeader;
-	SendHeader.Size = sizeof(FRequestLoginData);
-	SendHeader.Type = RequestLogin;
-	SocketBox->GetSocket()->Send((uint8*)&SendHeader, sizeof(SendHeader), Sent);
-	
-	FRequestLoginData RequestData = {};
-	StringToBytes(ID.ToString(), (uint8*)&RequestData.Id, sizeof(RequestData.Id));
-	StringToBytes(Password.ToString(), (uint8*)&RequestData.Password, sizeof(RequestData.Password));
-	SocketBox->GetSocket()->Send((uint8*)&RequestData, sizeof(RequestData), Sent);
+	const FString Nickname = Login(ID, Password);
+	LoginWidget->StopLoading();
 
-	FHeader ReceiveHeader = {};
-	int32 Read = 0;
-	SocketBox->GetSocket()->Recv((uint8*)&ReceiveHeader, sizeof(ReceiveHeader), Read, ESocketReceiveFlags::WaitAll);
-
-	if(ReceiveHeader.Type == ResponseLogin)
+	if (Nickname.IsEmpty())
 	{
-		FResponseLoginData ResponseData = {};
-		SocketBox->GetSocket()->Recv((uint8*)&ResponseData, sizeof(ResponseData), Read, ESocketReceiveFlags::WaitAll);
-		
-		LoginWidget->StopLoading();
-		
-		if (ResponseData.IsSuccess)
-		{
-			FString Nickname(ResponseData.Nickname);
-			NicknameBox->SetNickname(Nickname);
-			LoginWidget->ShowSuccessMessage();
-			// UGameplayStatics::OpenLevelBySoftObjectPtr(GetWorld(), NextLevel);
-		}
-		else
-		{
-			LoginWidget->ShowFailMessage();
-		}
+		LoginWidget->ShowFailMessage();
+	}
+	else
+	{
+		NicknameBox->SetNickname(Nickname);
+		LoginWidget->ShowSuccessMessage();
 	}
 }
 
 void ALoginPlayerController::BindCreateAccountRequest(const FText& ID, const FText& Password, const FText& Nickname)
 {
+	if(!bIsConnected)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Server is disconnected."))
+		return;
+	}
+	CreateAccountWidget->StartLoading();
+	const bool bIsSuccess = CreateAccount(ID, Password, Nickname);
+	CreateAccountWidget->StopLoading();
+	if (!bIsSuccess)
+	{
+		CreateAccountWidget->ShowFailMessage();
+	}
+	else
+	{
+		CreateAccountWidget->ShowSuccessMessage();
+	}
 }
 
 void ALoginPlayerController::BindOpenCreateAccountRequest()
@@ -133,6 +128,11 @@ void ALoginPlayerController::BindOpenLoginRequest()
 	LoginWidget->AddToViewport();
 }
 
+void ALoginPlayerController::BindOpenNextLevelRequest()
+{
+	UGameplayStatics::OpenLevelBySoftObjectPtr(GetWorld(), NextLevel);
+}
+
 void ALoginPlayerController::InitializeSocketBox()
 {
 	SocketBox.SetInterface(Cast<ISocketInterface>(GetGameInstance()));
@@ -143,4 +143,68 @@ void ALoginPlayerController::InitializeNicknameBox()
 {
 	NicknameBox.SetInterface(Cast<INicknameInterface>(GetGameInstance()));
 	NicknameBox.SetObject(GetGameInstance());
+}
+
+FString ALoginPlayerController::Login(const FText& ID, const FText& Password)
+{
+	int32 Sent = 0;
+	
+	FHeader SendHeader;
+	SendHeader.Size = sizeof(FRequestLoginData);
+	SendHeader.Type = RequestLogin;
+	SocketBox->GetSocket()->Send((uint8*)&SendHeader, sizeof(SendHeader), Sent);
+	
+	FRequestLoginData RequestData = {};
+	StringToBytes(ID.ToString(), (uint8*)&RequestData.Id, sizeof(RequestData.Id));
+	StringToBytes(Password.ToString(), (uint8*)&RequestData.Password, sizeof(RequestData.Password));
+	SocketBox->GetSocket()->Send((uint8*)&RequestData, sizeof(RequestData), Sent);
+
+	
+	FHeader ReceiveHeader = {};
+	int32 Read = 0;
+	SocketBox->GetSocket()->Recv((uint8*)&ReceiveHeader, sizeof(ReceiveHeader), Read, ESocketReceiveFlags::WaitAll);
+
+	if(ReceiveHeader.Type != ResponseLogin)
+	{
+		return FString();
+	}
+	
+	FResponseLoginData ResponseData = {};
+	SocketBox->GetSocket()->Recv((uint8*)&ResponseData, sizeof(ResponseData), Read, ESocketReceiveFlags::WaitAll);
+	
+	if (!ResponseData.IsSuccess)
+	{
+		return FString();
+	}
+	return FString(ResponseData.Nickname);
+}
+
+bool ALoginPlayerController::CreateAccount(const FText& ID, const FText& Password, const FText& Nickname)
+{
+	int32 Sent = 0;
+	
+	FHeader SendHeader;
+	SendHeader.Size = sizeof(FRequestCreateAccountData);
+	SendHeader.Type = RequestCreateAccount;
+	SocketBox->GetSocket()->Send((uint8*)&SendHeader, sizeof(SendHeader), Sent);
+	
+	FRequestCreateAccountData RequestData = {};
+	StringToBytes(ID.ToString(), (uint8*)&RequestData.Id, sizeof(RequestData.Id));
+	StringToBytes(Password.ToString(), (uint8*)&RequestData.Password, sizeof(RequestData.Password));
+	StringToBytes(Nickname.ToString(), (uint8*)&RequestData.Nickname, sizeof(RequestData.Nickname));
+	SocketBox->GetSocket()->Send((uint8*)&RequestData, sizeof(RequestData), Sent);
+
+	
+	FHeader ReceiveHeader = {};
+	int32 Read = 0;
+	SocketBox->GetSocket()->Recv((uint8*)&ReceiveHeader, sizeof(ReceiveHeader), Read, ESocketReceiveFlags::WaitAll);
+
+	if(ReceiveHeader.Type != ResponseCreateAccount)
+	{
+		return false;
+	}
+	
+	FResponseCreateAccountData ResponseData = {};
+	SocketBox->GetSocket()->Recv((uint8*)&ResponseData, sizeof(ResponseData), Read, ESocketReceiveFlags::WaitAll);
+	return ResponseData.IsSuccess;
 }

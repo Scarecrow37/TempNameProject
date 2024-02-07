@@ -56,8 +56,15 @@ private:
 	
 	UFUNCTION()
 	void BindOpenLoginRequest();
+	
+	UFUNCTION()
+	void BindOpenNextLevelRequest();
 
 	void InitializeSocketBox();
 
 	void InitializeNicknameBox();
+
+	FString Login(const FText& ID, const FText& Password);
+
+	bool CreateAccount(const FText& ID, const FText& Password, const FText& Nickname);
 };
