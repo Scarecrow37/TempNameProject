@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MainPlayerState.h"
+#include "GameModes/MainPlayerState.h"
 
 AMainPlayerState::AMainPlayerState() : MasterVolume(1.0f), MusicVolume(1.0f), SFXVolume(1.0f)
 {
