@@ -1,0 +1,38 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "5.3",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "TempNameProject",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"AdditionalDependencies": [
+				"HomeLevelGameModePlugin",
+				"Engine"
+			]
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "ModelingToolsEditorMode",
+			"Enabled": true,
+			"TargetAllowList": [
+				"Editor"
+			]
+		},
+		{
+			"Name": "Home",
+			"Enabled": true
+		},
+		{
+			"Name": "HomeLevelGameModePlugin",
+			"Enabled": true
+		},
+		{
+			"Name": "MainSoundPlugin",
+			"Enabled": true
+		}
+	]
+}
