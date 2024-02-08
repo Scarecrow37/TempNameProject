@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "GamePlayerController.h"
-#include "MainGameInstance.h"
+#include "GameModes/GamePlayerController.h"
+#include "GameModes/MainGameInstance.h"
 #include "Kismet/GameplayStatics.h"
-#include "MainPlayerState.h"
+#include "GameModes/MainPlayerState.h"
 
 
 void AGamePlayerController::OnPossess(APawn* InPawn)

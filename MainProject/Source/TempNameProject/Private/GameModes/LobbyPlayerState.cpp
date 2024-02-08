@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "LobbyPlayerState.h"
+#include "GameModes/LobbyPlayerState.h"
 #include "Net/UnrealNetwork.h"	// DOREPLIFETIME 사용을 위해 추가
-#include "LobbyPlayerController.h"
+#include "GameModes/LobbyPlayerController.h"
 #include "Kismet/GameplayStatics.h"
 
 void ALobbyPlayerState::GetLifetimeReplicatedProps(TArray< FLifetimeProperty >& OutLifetimeProps) const

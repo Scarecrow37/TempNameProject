@@ -1,11 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "LobbyPlayerController.h"
+#include "GameModes/LobbyPlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/AudioComponent.h"
-#include "LobbyPlayerState.h"
-#include "MainGameInstance.h"
+#include "GameModes/LobbyPlayerState.h"
+#include "GameModes/MainGameInstance.h"
 #include "MainSoundWidget.h"
 #include "ChatPlugin.h"
 #include "Home/Public/LobbyRoomUserWidget.h"

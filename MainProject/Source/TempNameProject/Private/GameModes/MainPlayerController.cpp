@@ -8,8 +8,8 @@
 #include "Blueprint/UserWidget.h"
 #include "GameModes/MainPlayerState.h"
 #include "MainSoundWidget.h"
-#include "TempNameProject/MainGameInstance.h"
-#include "LobbyPlayerState.h"
+#include "GameModes/MainGameInstance.h"
+#include "GameModes/LobbyPlayerState.h"
 
 
 AMainPlayerController::AMainPlayerController()

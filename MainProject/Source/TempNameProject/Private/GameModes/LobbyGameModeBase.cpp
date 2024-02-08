@@ -1,10 +1,10 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "LobbyGameModeBase.h"
-#include "LobbyGameStateBase.h"
-#include "LobbyPlayerState.h"
-#include "LobbyPlayerController.h"
+#include "GameModes/LobbyGameModeBase.h"
+#include "GameModes/LobbyGameStateBase.h"
+#include "GameModes/LobbyPlayerState.h"
+#include "GameModes/LobbyPlayerController.h"
 
 
 void ALobbyGameModeBase::PostLogin(APlayerController* NewPlayer)

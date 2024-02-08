@@ -1,9 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "LobbyGameStateBase.h"
+#include "GameModes/LobbyGameStateBase.h"
 #include "Net/UnrealNetwork.h"
-#include "LobbyPlayerController.h"
+#include "GameModes/LobbyPlayerController.h"
 #include "Kismet/GameplayStatics.h"
 
 void ALobbyGameStateBase::IncreasePlayerCount()

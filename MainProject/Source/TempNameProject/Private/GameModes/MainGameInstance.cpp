@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "MainGameInstance.h"
+#include "GameModes/MainGameInstance.h"
 #include "OnlineSessionSettings.h"
 #include "Online/OnlineSessionNames.h"
 #include "FindSessionsCallbackProxy.h"
@@ -430,3 +430,29 @@ void UMainGameInstance::DestroySessionAndLeaveGame()
 void UMainGameInstance::OnFindSessionResult_Implementation(const TArray<FBlueprintSessionResult>& SessionResults)
 {
 }
+
+
+
+//======================================================
+//==================== 家南 贸府 包访 ====================
+//======================================================
+void UMainGameInstance::SetSocket(const TSharedPtr<FSocket> Socket)
+{
+	ServerSocket = Socket;
+}
+
+TSharedPtr<FSocket> UMainGameInstance::GetSocket()
+{
+	return ServerSocket;
+}
+
+void UMainGameInstance::SetNickname(const FString InNickname)
+{
+	Nickname = InNickname;
+}
+
+FString UMainGameInstance::GetNickname()
+{
+	return Nickname;
+}
+
