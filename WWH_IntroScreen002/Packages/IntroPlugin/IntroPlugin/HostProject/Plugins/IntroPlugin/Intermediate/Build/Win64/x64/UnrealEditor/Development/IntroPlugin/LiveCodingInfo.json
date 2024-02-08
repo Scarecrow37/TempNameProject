@@ -1,0 +1,15 @@
+{
+	"RemapUnityFiles": 
+	{
+		"Module.IntroPlugin.cpp.obj": [
+			"IntroGameModeBase.gen.cpp.obj",
+			"IntroPlayerController.gen.cpp.obj",
+			"IntroPlugin.init.gen.cpp.obj",
+			"IntroUserWidget.gen.cpp.obj",
+			"IntroGameModeBase.cpp.obj",
+			"IntroPlayerController.cpp.obj",
+			"IntroPlugin.cpp.obj",
+			"IntroUserWidget.cpp.obj"
+		]
+	}
+}
