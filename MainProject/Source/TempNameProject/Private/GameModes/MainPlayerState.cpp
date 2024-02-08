@@ -2,6 +2,15 @@
 
 
 #include "GameModes/MainPlayerState.h"
+#include "Net/UnrealNetwork.h"
+
+void AMainPlayerState::GetLifetimeReplicatedProps(TArray< FLifetimeProperty >& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	// 'UserName' �Ӽ��� ��Ʈ��ũ �󿡼� �����Ǿ�� ���� �����մϴ�.
+	DOREPLIFETIME(AMainPlayerState, UserName);
+}
 
 AMainPlayerState::AMainPlayerState() : MasterVolume(1.0f), MusicVolume(1.0f), SFXVolume(1.0f)
 {
@@ -13,6 +22,19 @@ void AMainPlayerState::BeginPlay()
 	Super::BeginPlay();
 }
 
+void AMainPlayerState::SetUserName(const FString& NewUserName)
+{
+	UserName = NewUserName;
+	OnRep_UserName();
+}
+
+void AMainPlayerState::OnRep_UserName()
+{
+	if (OnUserName.IsBound())
+	{
+		OnUserName.Broadcast(UserName);
+	}
+}
 
 float AMainPlayerState::ValidateVolume(float Volume)
 {
