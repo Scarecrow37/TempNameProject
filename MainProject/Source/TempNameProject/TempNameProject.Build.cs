@@ -8,7 +8,7 @@ public class TempNameProject : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "MainSoundPlugin", "HomeLevelGameModePlugin", "UMG", "EnhancedInput", "OnlineSubsystem", "OnlineSubsystemUtils", "ChatPlugin", "Home" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "MainSoundPlugin", "HomeLevelGameModePlugin", "UMG", "EnhancedInput", "IntroPlugin", "WASDEnhancedInput", "Sockets", "Networking", "OnlineSubsystem", "OnlineSubsystemUtils", "ChatPlugin", "Home" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 

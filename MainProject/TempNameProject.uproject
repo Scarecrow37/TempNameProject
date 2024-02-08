@@ -10,7 +10,8 @@
 			"LoadingPhase": "Default",
 			"AdditionalDependencies": [
 				"HomeLevelGameModePlugin",
-				"Engine"
+				"Engine",
+				"UMG"
 			]
 		}
 	],
