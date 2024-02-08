@@ -81,7 +81,7 @@ void ALobbyPlayerController::RequestChangeUserName_Implementation(const FString&
 	if (!IsValid(LobbyPS))
 		return;
 
-	LobbyPS->SetUserName(NewName);
+	LobbyPS->SetUserName(Cast<UMainGameInstance>(GetGameInstance())->GetNickname());
 }
 
 

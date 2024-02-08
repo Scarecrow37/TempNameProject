@@ -441,15 +441,18 @@ void UMainGameInstance::SetSocket(const TSharedPtr<FSocket> Socket)
 	ServerSocket = Socket;
 }
 
+
 TSharedPtr<FSocket> UMainGameInstance::GetSocket()
 {
 	return ServerSocket;
 }
 
+
 void UMainGameInstance::SetNickname(const FString InNickname)
 {
 	Nickname = InNickname;
 }
+
 
 FString UMainGameInstance::GetNickname()
 {
