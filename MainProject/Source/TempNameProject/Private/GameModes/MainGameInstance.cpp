@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "GameModes/MainGameInstance.h"
@@ -193,7 +193,7 @@ void UMainGameInstance::OnFindSessionsComplete(bool bWasSuccessful)
 			// If we have found at least 1 session, we just going to debug them. You could add them to a list of UMG Widgets, like it is done in the BP version!
 			if (SessionSearch->SearchResults.Num() > 0)
 			{
-				// Unreal Engine ¿¡¼­ ¼¼¼Ç °Ë»ö °á°ú¸¦ µ¿ÀûÀ¸·Î ÀúÀåÇÏ±â À§ÇØ TArray ¸¦ »ç¿ëÇÕ´Ï´Ù.
+				// Unreal Engine ì—ì„œ ì„¸ì…˜ ê²€ìƒ‰ ê²°ê³¼ë¥¼ ë™ì ìœ¼ë¡œ ì €ì¥í•˜ê¸° ìœ„í•´ TArray ë¥¼ ì‚¬ìš©í•©ë‹ˆë‹¤.
 				TArray<FBlueprintSessionResult> arrResult;
 				arrResult.SetNum(SessionSearch->SearchResults.Num());
 
@@ -205,11 +205,11 @@ void UMainGameInstance::OnFindSessionsComplete(bool bWasSuccessful)
 					// This is something you can't do in Blueprint for example!
 					GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("Session Number: %d | Sessionname: %s "), SearchIdx + 1, *(SessionSearch->SearchResults[SearchIdx].Session.OwningUserName)));
 
-					// Index º°·Î OnlineSessionResult °¡ ¼³Á¤µË´Ï´Ù.
+					// Index ë³„ë¡œ OnlineSessionResult ê°€ ì„¤ì •ë©ë‹ˆë‹¤.
 					arrResult[SearchIdx].OnlineResult = SessionSearch->SearchResults[SearchIdx];
 				}
 
-				// ÃÖÁ¾ÀûÀ¸·Î ¼¼¼Ç ¸®½ºÆ®¸¦ ´ã¾Æ¼­ ¹İÈ¯ÇÏ´Â ÇÔ¼ö¸¦ È£Ãâ
+				// ìµœì¢…ì ìœ¼ë¡œ ì„¸ì…˜ ë¦¬ìŠ¤íŠ¸ë¥¼ ë‹´ì•„ì„œ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜ë¥¼ í˜¸ì¶œ
 				OnFindSessionResult(arrResult);
 			}
 		}
@@ -219,7 +219,7 @@ void UMainGameInstance::OnFindSessionsComplete(bool bWasSuccessful)
 
 
 //================================== [ Join Session ]
-bool UMainGameInstance::JoinSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, const FOnlineSessionSearchResult& SearchResult)
+bool UMainGameInstance::CustomJoinSession(TSharedPtr<const FUniqueNetId> UserId, FName SessionName, const FOnlineSessionSearchResult& SearchResult)
 {
 	// Return bool
 	bool bSuccessful = false;
@@ -275,13 +275,13 @@ void UMainGameInstance::OnJoinSessionComplete(FName SessionName, EOnJoinSessionC
 			{
 				FString strIP, strPort;
 				int32 nPort = 7777;
-				// ±âÁ¸ ¿¹½Ã : 192.168.3.118
+				// ê¸°ì¡´ ì˜ˆì‹œ : 192.168.3.118
 				TravelURL.Split(TEXT(":"), &strIP, &strPort, ESearchCase::IgnoreCase, ESearchDir::FromStart);
 
 				// strIP = 192.168.3.118
 				// strPort = 0
 				FString NewTravelURL = FString::Printf(TEXT("%s:%d"), *strIP, nPort);
-				// º¯°æ ÈÄ ¿¹½Ã : 192.168.3.118:7777
+				// ë³€ê²½ í›„ ì˜ˆì‹œ : 192.168.3.118:7777
 
 				GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("OnJoinSessionComplete NewTravelURL=%s"), *NewTravelURL));
 				// Finally call the ClienTravel. If you want, you could print the TravelURL to see
@@ -345,13 +345,13 @@ void UMainGameInstance::StartOnlineGame()
 	if (!IdentityInterface.IsValid())
 		return;
 
-	// À¯Àú °íÀ¯ ¾ÆÀÌµğ °¡Á®¿À´Â ¹æ¹ıÀÔ´Ï´Ù.
+	// ìœ ì € ê³ ìœ  ì•„ì´ë”” ê°€ì ¸ì˜¤ëŠ” ë°©ë²•ì…ë‹ˆë‹¤.
 	const FUniqueNetIdPtr UniqueNetId = IdentityInterface->GetUniquePlayerId(Player->GetControllerId());
 	if (!UniqueNetId.IsValid())
 		return;
 
 	// Call our custom HostSession function. GameSessionName is a GameInstance variable
-	HostSession(UniqueNetId, GameSessionName, true, true, 4);
+	HostSession(UniqueNetId, NAME_GameSession, true, true, 4);
 }
 
 
@@ -371,7 +371,7 @@ void UMainGameInstance::FindOnlineGames()
 	if (!IdentityInterface.IsValid())
 		return;
 
-	// À¯Àú °íÀ¯ ¾ÆÀÌµğ °¡Á®¿À´Â ¹æ¹ıÀÔ´Ï´Ù.
+	// ìœ ì € ê³ ìœ  ì•„ì´ë”” ê°€ì ¸ì˜¤ëŠ” ë°©ë²•ì…ë‹ˆë‹¤.
 	const FUniqueNetIdPtr UniqueNetId = IdentityInterface->GetUniquePlayerId(Player->GetControllerId());
 	if (!UniqueNetId.IsValid())
 		return;
@@ -397,13 +397,13 @@ void UMainGameInstance::JoinOnlineGame(FBlueprintSessionResult SessionResult)
 	if (!IdentityInterface.IsValid())
 		return;
 
-	// À¯Àú °íÀ¯ ¾ÆÀÌµğ °¡Á®¿À´Â ¹æ¹ıÀÔ´Ï´Ù.
+	// ìœ ì € ê³ ìœ  ì•„ì´ë”” ê°€ì ¸ì˜¤ëŠ” ë°©ë²•ì…ë‹ˆë‹¤.
 	const FUniqueNetIdPtr UniqueNetId = IdentityInterface->GetUniquePlayerId(Player->GetControllerId());
 	if (!UniqueNetId.IsValid())
 		return;
 
-	// ³»°¡ ¼±ÅÃÇÑ ¼­¹ö¿¡ ´ëÇÑ Á¤º¸¸¦ ³Ñ°ÜÁÖµµ·Ï ÇÕ´Ï´Ù.(SessionResult ·Î)
-	JoinSession(UniqueNetId, GameSessionName, SessionResult.OnlineResult);
+	// ë‚´ê°€ ì„ íƒí•œ ì„œë²„ì— ëŒ€í•œ ì •ë³´ë¥¼ ë„˜ê²¨ì£¼ë„ë¡ í•©ë‹ˆë‹¤.(SessionResult ë¡œ)
+	CustomJoinSession(UniqueNetId, GameSessionName, SessionResult.OnlineResult);
 }
 
 
@@ -434,7 +434,7 @@ void UMainGameInstance::OnFindSessionResult_Implementation(const TArray<FBluepri
 
 
 //======================================================
-//==================== ¼ÒÄÏ Ã³¸® °ü·Ã ====================
+//==================== ì†Œì¼“ ì²˜ë¦¬ ê´€ë ¨ ====================
 //======================================================
 void UMainGameInstance::SetSocket(const TSharedPtr<FSocket> Socket)
 {

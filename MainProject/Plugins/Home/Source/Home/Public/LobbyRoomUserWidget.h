@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+Ôªø// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -19,13 +19,25 @@ class HOME_API ULobbyRoomUserWidget : public UUserWidget
 public:
 	virtual void NativeConstruct() override;
 
-	UUserWidget* GetChatWdiget();
+	UUserWidget* GetLobbyChatWidget();
+
+	UUserWidget* GetLobbySoundWidget();
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
-	void UpdateUserName();
+	void UpdateLobbyUserName();
+
+private:
+	UFUNCTION()
+	bool LobbySoundISVisible();
+
+	UFUNCTION(BlueprintCallable)
+	void ToggleVisibleWidget();
 
 protected:
-	// EditDefaultsOnly : ∫ª¿Œ∏∏ ºˆ¡§ ∞°¥…
+	// EditDefaultsOnly : Î≥∏Ïù∏Îßå ÏàòÏ†ï Í∞ÄÎä•
 	UPROPERTY(EditDefaultsOnly, meta = (BindWidget))
-	UUserWidget* ChatWidget;
+	UUserWidget* LobbyChatWidget;
+
+	UPROPERTY(EditDefaultsOnly, meta = (BindWidget))
+	UUserWidget* LobbySoundWidget;
 };

@@ -1,11 +1,10 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "GameModes/InGame/InGameStateBase.h"
 #include "GameModes/InGame/InGamePlayerController.h"
 #include "Net/UnrealNetwork.h"
 #include "Kismet/GameplayStatics.h"
-#include "ChatPlugin/Public/ChatWidget.h"
 
 void AInGameStateBase::IncreasePlayerCount()
 {

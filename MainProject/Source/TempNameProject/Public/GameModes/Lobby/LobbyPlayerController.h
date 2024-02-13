@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -13,6 +13,7 @@ class USoundClass;
 class UAudioComponent;
 class UUserWidget;
 class ULobbyRoomUserWidget;
+class UMainSoundWidget;
 
 /**
  * 
@@ -23,7 +24,7 @@ class TEMPNAMEPROJECT_API ALobbyPlayerController : public APlayerController
 	GENERATED_BODY()
 
 //======================================================
-//==================== °ø¿ë Ã³¸® °ü·Ã ====================
+//==================== ê³µìš© ì²˜ë¦¬ ê´€ë ¨ ====================
 //======================================================
 public:
 	ALobbyPlayerController();
@@ -40,46 +41,46 @@ private:
 
 	
 //======================================================
-//=================== »ç¿îµå Ã³¸® °ü·Ã ===================
+//=================== ì‚¬ìš´ë“œ ì²˜ë¦¬ ê´€ë ¨ ===================
 //======================================================
 public:
 	// ======================= [ Event Dispatcher Function ]
 	/**
-	* Àü´Ş¹ŞÀº ½Ç¼ö¸¦ ÅëÇØ ÀüÃ¼ º¼·ıÀ» Á¶ÀıÇÕ´Ï´Ù.
-	* @param Volume ÀüÃ¼ º¼·ıÀ» Á¶ÀıÇÒ »ç¿îµå Å©±â °ª
+	* ì „ë‹¬ë°›ì€ ì‹¤ìˆ˜ë¥¼ í†µí•´ ì „ì²´ ë³¼ë¥¨ì„ ì¡°ì ˆí•©ë‹ˆë‹¤.
+	* @param Volume ì „ì²´ ë³¼ë¥¨ì„ ì¡°ì ˆí•  ì‚¬ìš´ë“œ í¬ê¸° ê°’
 	*/
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void OnSetMasterVolume(float Volume);
 
 	/**
-	* Àü´Ş¹ŞÀº ½Ç¼ö¸¦ ÅëÇØ ÀüÃ¼ º¼·ıÀ» Á¶ÀıÇÕ´Ï´Ù.
-	* @param Volume ÀüÃ¼ º¼·ıÀ» Á¶ÀıÇÒ »ç¿îµå Å©±â °ª
+	* ì „ë‹¬ë°›ì€ ì‹¤ìˆ˜ë¥¼ í†µí•´ ì „ì²´ ë³¼ë¥¨ì„ ì¡°ì ˆí•©ë‹ˆë‹¤.
+	* @param Volume ì „ì²´ ë³¼ë¥¨ì„ ì¡°ì ˆí•  ì‚¬ìš´ë“œ í¬ê¸° ê°’
 	*/
 	virtual void OnSetMasterVolume_Implementation(float Volume);
 
 	/**
-	* Àü´Ş¹ŞÀº ½Ç¼ö¸¦ ÅëÇØ À½¾Ç º¼·ıÀ» Á¶ÀıÇÕ´Ï´Ù.
-	* @param Volume À½¾Ç º¼·ıÀ» Á¶ÀıÇÒ »ç¿îµå Å©±â °ª
+	* ì „ë‹¬ë°›ì€ ì‹¤ìˆ˜ë¥¼ í†µí•´ ìŒì•… ë³¼ë¥¨ì„ ì¡°ì ˆí•©ë‹ˆë‹¤.
+	* @param Volume ìŒì•… ë³¼ë¥¨ì„ ì¡°ì ˆí•  ì‚¬ìš´ë“œ í¬ê¸° ê°’
 	*/
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void OnSetMusicVolume(float Volume);
 
 	/**
-	* Àü´Ş¹ŞÀº ½Ç¼ö¸¦ ÅëÇØ À½¾Ç º¼·ıÀ» Á¶ÀıÇÕ´Ï´Ù.
-	* @param Volume À½¾Ç º¼·ıÀ» Á¶ÀıÇÒ »ç¿îµå Å©±â °ª
+	* ì „ë‹¬ë°›ì€ ì‹¤ìˆ˜ë¥¼ í†µí•´ ìŒì•… ë³¼ë¥¨ì„ ì¡°ì ˆí•©ë‹ˆë‹¤.
+	* @param Volume ìŒì•… ë³¼ë¥¨ì„ ì¡°ì ˆí•  ì‚¬ìš´ë“œ í¬ê¸° ê°’
 	*/
 	virtual void OnSetMusicVolume_Implementation(float Volume);
 
 	/**
-	* Àü´Ş¹ŞÀº ½Ç¼ö¸¦ ÅëÇØ È¿°úÀ½ º¼·ıÀ» Á¶ÀıÇÕ´Ï´Ù.
-	* @param Volume È¿°úÀ½ º¼·ıÀ» Á¶ÀıÇÒ »ç¿îµå Å©±â °ª
+	* ì „ë‹¬ë°›ì€ ì‹¤ìˆ˜ë¥¼ í†µí•´ íš¨ê³¼ìŒ ë³¼ë¥¨ì„ ì¡°ì ˆí•©ë‹ˆë‹¤.
+	* @param Volume íš¨ê³¼ìŒ ë³¼ë¥¨ì„ ì¡°ì ˆí•  ì‚¬ìš´ë“œ í¬ê¸° ê°’
 	*/
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void OnSetSFXVolume(float Volume);
 
 	/**
-	* Àü´Ş¹ŞÀº ½Ç¼ö¸¦ ÅëÇØ È¿°úÀ½ º¼·ıÀ» Á¶ÀıÇÕ´Ï´Ù.
-	* @param Volume È¿°úÀ½ º¼·ıÀ» Á¶ÀıÇÒ »ç¿îµå Å©±â °ª
+	* ì „ë‹¬ë°›ì€ ì‹¤ìˆ˜ë¥¼ í†µí•´ íš¨ê³¼ìŒ ë³¼ë¥¨ì„ ì¡°ì ˆí•©ë‹ˆë‹¤.
+	* @param Volume íš¨ê³¼ìŒ ë³¼ë¥¨ì„ ì¡°ì ˆí•  ì‚¬ìš´ë“œ í¬ê¸° ê°’
 	*/
 	virtual void OnSetSFXVolume_Implementation(float Volume);
 
@@ -99,10 +100,7 @@ private:
 	// ======================= [ Member Property ]
 	// UI Property
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (AllowPrivateAccess = "true"), Category = "UI")
-	TSubclassOf<UUserWidget> SoundWidgetClass;
-
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, meta = (AllowPrivateAccess = "true"), Category = "UI")
-	TObjectPtr<UUserWidget> SoundWidget;
+	TObjectPtr<UMainSoundWidget> SoundWidget;
 
 
 	// Sound Class, Mix Property
@@ -126,7 +124,7 @@ private:
 
 
 //======================================================
-//=============== ÇÃ·¹ÀÌ¾î ´Ğ³×ÀÓ Á¤º¸ °ü·Ã ===============
+//=============== í”Œë ˆì´ì–´ ë‹‰ë„¤ì„ ì •ë³´ ê´€ë ¨ ===============
 //======================================================
 public:
 	UFUNCTION(Server, Reliable)
@@ -165,7 +163,7 @@ public:
 
 
 //======================================================
-//====================== Ã¤ÆÃ °ü·Ã ======================
+//====================== ì±„íŒ… ê´€ë ¨ ======================
 //======================================================
 public:
 	UFUNCTION(Server, Unreliable, WithValidation, BlueprintCallable)
