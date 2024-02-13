@@ -1,14 +1,14 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "GameModes/Entry/EntryPlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/AudioComponent.h"
-#include "GameModes/Lobby/LobbyPlayerState.h"
 #include "GameModes/MainGameInstance.h"
 #include "GameModes/Entry/EntryPlayerState.h"
-#include "MainSoundWidget.h"
-#include "ChatPlugin.h"
+#include "Home/Public/EntryUserWidget.h"
+#include "MainSoundPlugin/Public/MainSoundWidget.h"
+#include "ChatPlugin/Public/ChatWidget.h"
 
 
 AEntryPlayerController::AEntryPlayerController()
@@ -41,7 +41,7 @@ void AEntryPlayerController::BeginPlay()
 		return;
 	}
 
-	EntryWidget = CreateWidget<UUserWidget>(GetWorld(), EntryWidgetClass);
+	EntryWidget = CreateWidget<UEntryUserWidget>(GetWorld(), EntryWidgetClass);
 	EntryWidget->AddToViewport();
 
 	Player0->SetInputMode(FInputModeUIOnly());
@@ -139,11 +139,11 @@ void AEntryPlayerController::OnUpdateUserName_Implementation(const FString& User
 
 
 //======================================================
-//=================== »ç¿îµå Ã³¸® °ü·Ã ===================
+//=================== ì‚¬ìš´ë“œ ì²˜ë¦¬ ê´€ë ¨ ===================
 //======================================================
 void AEntryPlayerController::ApplyMasterVolume(float Volume)
 {
-	ALobbyPlayerState* PS = Cast<ALobbyPlayerState>(PlayerState);
+	AEntryPlayerState* PS = Cast<AEntryPlayerState>(PlayerState);
 	if (!IsValid(PS))
 		return;
 
@@ -154,7 +154,7 @@ void AEntryPlayerController::ApplyMasterVolume(float Volume)
 
 void AEntryPlayerController::ApplyMusicVolume(float Volume)
 {
-	ALobbyPlayerState* PS = Cast<ALobbyPlayerState>(PlayerState);
+	AEntryPlayerState* PS = Cast<AEntryPlayerState>(PlayerState);
 	if (!IsValid(PS))
 		return;
 
@@ -164,7 +164,7 @@ void AEntryPlayerController::ApplyMusicVolume(float Volume)
 
 void AEntryPlayerController::ApplySFXVolume(float Volume)
 {
-	ALobbyPlayerState* PS = Cast<ALobbyPlayerState>(PlayerState);
+	AEntryPlayerState* PS = Cast<AEntryPlayerState>(PlayerState);
 	if (!IsValid(PS))
 		return;
 
@@ -175,7 +175,7 @@ void AEntryPlayerController::ApplySFXVolume(float Volume)
 
 void AEntryPlayerController::InitializeAudio()
 {
-	ALobbyPlayerState* PS = Cast<ALobbyPlayerState>(PlayerState);
+	AEntryPlayerState* PS = Cast<AEntryPlayerState>(PlayerState);
 	if (!IsValid(PS))
 		return;
 
@@ -192,26 +192,26 @@ void AEntryPlayerController::InitializeAudio()
 
 void AEntryPlayerController::InitializeWidget()
 {
-	ALobbyPlayerState* PS = Cast<ALobbyPlayerState>(this->PlayerState);
+	AEntryPlayerState* PS = Cast<AEntryPlayerState>(this->PlayerState);
 	if (IsValid(PS))
 	{
 		float MasterVolume = PS->GetMasterVolume();
 		float MusicVolume = PS->GetMusicVolume();
 		float SFXVolume = PS->GetSFXVolume();
 
-		UMainSoundWidget* US = CreateWidget<UMainSoundWidget>(GetWorld(), SoundWidgetClass);
-		if (!US)
+		SoundWidget = Cast<UMainSoundWidget>(EntryWidget->GetEntrySoundWidget());
+		if (!SoundWidget)
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 30.0f, FColor::White, TEXT("US Failed !"));
 			return;
-		}
-		US->OnChangedMasterVolume.AddDynamic(this, &AEntryPlayerController::OnSetMasterVolume);
-		US->OnChangedMusicVolume.AddDynamic(this, &AEntryPlayerController::OnSetMusicVolume);
-		US->OnChangedSFXVolume.AddDynamic(this, &AEntryPlayerController::OnSetSFXVolume);
+		};
+		SoundWidget->OnChangedMasterVolume.AddDynamic(this, &AEntryPlayerController::OnSetMasterVolume);
+		SoundWidget->OnChangedMusicVolume.AddDynamic(this, &AEntryPlayerController::OnSetMusicVolume);
+		SoundWidget->OnChangedSFXVolume.AddDynamic(this, &AEntryPlayerController::OnSetSFXVolume);
 
-		US->SetVolume(MasterVolume, MusicVolume, SFXVolume);
-		SoundWidget = US;
-		US->AddToViewport();
+		SoundWidget->SetVolume(MasterVolume, MusicVolume, SFXVolume);
+		SoundWidget = SoundWidget;
+		SoundWidget->AddToViewport();
 
 		return;
 	}
@@ -220,7 +220,7 @@ void AEntryPlayerController::InitializeWidget()
 
 void AEntryPlayerController::OnSetMasterVolume_Implementation(float Volume)
 {
-	ALobbyPlayerState* PS = Cast<ALobbyPlayerState>(PlayerState);
+	AEntryPlayerState* PS = Cast<AEntryPlayerState>(PlayerState);
 	if (!IsValid(PS))
 		return;
 
@@ -231,7 +231,7 @@ void AEntryPlayerController::OnSetMasterVolume_Implementation(float Volume)
 
 void AEntryPlayerController::OnSetMusicVolume_Implementation(float Volume)
 {
-	ALobbyPlayerState* PS = Cast<ALobbyPlayerState>(PlayerState);
+	AEntryPlayerState* PS = Cast<AEntryPlayerState>(PlayerState);
 	if (!IsValid(PS))
 		return;
 
@@ -242,7 +242,7 @@ void AEntryPlayerController::OnSetMusicVolume_Implementation(float Volume)
 
 void AEntryPlayerController::OnSetSFXVolume_Implementation(float Volume)
 {
-	ALobbyPlayerState* PS = Cast<ALobbyPlayerState>(PlayerState);
+	AEntryPlayerState* PS = Cast<AEntryPlayerState>(PlayerState);
 	if (!IsValid(PS))
 		return;
 

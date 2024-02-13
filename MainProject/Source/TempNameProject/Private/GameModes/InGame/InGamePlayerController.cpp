@@ -1,15 +1,16 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "GameModes/InGame/InGamePlayerController.h"
-#include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/AudioComponent.h"
-#include "Blueprint/UserWidget.h"
+
 #include "GameModes/InGame/InGamePlayerState.h"
-#include "MainSoundWidget.h"
 #include "GameModes/MainGameInstance.h"
+
+#include "MainSoundWidget.h"
 #include "ChatPlugin/Public/ChatWidget.h"
+#include "Home/Public/InGameUserWidget.h"
 
 
 AInGamePlayerController::AInGamePlayerController()
@@ -33,21 +34,33 @@ void AInGamePlayerController::OnPossess(APawn* InPawn)
 
 void AInGamePlayerController::ResponseClientPossess_Implementation()
 {
-	UMainGameInstance* pGameInst = Cast<UMainGameInstance>(GetGameInstance());
-	if (!IsValid(pGameInst))
+	UMainGameInstance* GameIns = Cast<UMainGameInstance>(GetGameInstance());
+	if (!IsValid(GameIns))
+	{
 		return;
+	}
+
+	FString strName = Cast<UMainGameInstance>(GetGameInstance())->GetNickname();
+	RequestChangeUserName(strName);
 }
 
 void AInGamePlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//check(InGameWidgetClass);
+	check(InGameWidgetClass);
 
 	if (!IsLocalPlayerController())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("IsLocalPlayerController False"));
 		return;
+	}
+	else
+	{
+		InGameWidget = CreateWidget<UInGameUserWidget>(GetWorld(), InGameWidgetClass);
+		InGameWidget->AddToViewport();
+
+		ChatWidget = Cast<UChatWidget>(InGameWidget->GetInGameChatWidget());
 	}
 
 	APlayerController* Player0 = GetWorld()->GetFirstPlayerController();
@@ -56,28 +69,27 @@ void AInGamePlayerController::BeginPlay()
 		return;
 	}
 
-	//InGameWidget = CreateWidget<UUserWidget>(GetWorld(), InGameWidgetClass);
-	//InGameWidget->AddToViewport();
-
-	//ChatWidget = Cast<UChatWidget>(InGameWidget->GetChatWdiget());
-
 	Player0->SetInputMode(FInputModeGameOnly());
 	Player0->bShowMouseCursor = false;
 
 	InitializeAudio();
 	InitializeWidget();
+
+	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("AInGamePlayerController::BeginPlay Done !!")));
 }
 
 
 void AInGamePlayerController::RequestChangeUserName_Implementation(const FString& NewName)
 {
-	AInGamePlayerState* LobbyPS = Cast<AInGamePlayerState>(PlayerState);
-	if (!IsValid(LobbyPS))
+	AInGamePlayerState* InGamePS = Cast<AInGamePlayerState>(PlayerState);
+	if (!IsValid(InGamePS)) {
+		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Yellow, FString::Printf(TEXT("AInGamePlayerController::RequestChangeUserName InGamePS Failed !!")));
 		return;
+	}
 
-	FString s = Cast<UMainGameInstance>(GetGameInstance())->GetNickname();
-	LobbyPS->SetUserName(Cast<UMainGameInstance>(GetGameInstance())->GetNickname());
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Yellow, FString::Printf(TEXT("ALobbyPlayerController::RequestChangeUserName = %s"), *s));
+	InGamePS->SetUserName(NewName);
+	PlayerName = NewName;
+	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Yellow, FString::Printf(TEXT("AInGamePlayerController::RequestChangeUserName = %s"), *NewName));
 }
 
 
@@ -127,7 +139,7 @@ void AInGamePlayerController::OnUpdateUserName_Implementation(const FString& Use
 
 
 //======================================================
-//=================== »ç¿îµå Ã³¸® °ü·Ã ===================
+//=================== ì‚¬ìš´ë“œ ì²˜ë¦¬ ê´€ë ¨ ===================
 //======================================================
 void AInGamePlayerController::ApplyMasterVolume(float Volume)
 {
@@ -183,19 +195,19 @@ void AInGamePlayerController::InitializeWidget()
 		float MusicVolume = PS->GetMusicVolume();
 		float SFXVolume = PS->GetSFXVolume();
 
-		UMainSoundWidget* US = CreateWidget<UMainSoundWidget>(GetWorld(), SoundWidgetClass);
-		if (!US)
+		SoundWidget = Cast<UMainSoundWidget>(InGameWidget->GetInGameSoundWidget());
+		if (!SoundWidget)
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 30.0f, FColor::White, TEXT("US Failed !"));
 			return;
 		}
-		US->OnChangedMasterVolume.AddDynamic(this, &AInGamePlayerController::OnSetMasterVolume);
-		US->OnChangedMusicVolume.AddDynamic(this, &AInGamePlayerController::OnSetMusicVolume);
-		US->OnChangedSFXVolume.AddDynamic(this, &AInGamePlayerController::OnSetSFXVolume);
+		SoundWidget->OnChangedMasterVolume.AddDynamic(this, &AInGamePlayerController::OnSetMasterVolume);
+		SoundWidget->OnChangedMusicVolume.AddDynamic(this, &AInGamePlayerController::OnSetMusicVolume);
+		SoundWidget->OnChangedSFXVolume.AddDynamic(this, &AInGamePlayerController::OnSetSFXVolume);
 
-		US->SetVolume(MasterVolume, MusicVolume, SFXVolume);
-		SoundWidget = US;
-		US->AddToViewport();
+		SoundWidget->SetVolume(MasterVolume, MusicVolume, SFXVolume);
+		SoundWidget = SoundWidget;
+		SoundWidget->AddToViewport();
 
 		return;
 	}
@@ -234,7 +246,7 @@ void AInGamePlayerController::OnSetSFXVolume_Implementation(float Volume)
 
 
 //======================================================
-//====================== Ã¤ÆÃ °ü·Ã ======================
+//====================== ì±„íŒ… ê´€ë ¨ ======================
 //======================================================
 bool AInGamePlayerController::C2S_SendMessage_Validate(const FString& InMessage)
 {

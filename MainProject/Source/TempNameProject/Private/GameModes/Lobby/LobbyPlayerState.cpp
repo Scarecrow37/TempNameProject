@@ -1,9 +1,9 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+Ôªø// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "GameModes/Lobby/LobbyPlayerState.h"
 #include "GameModes/Lobby/LobbyPlayerController.h"
-#include "Net/UnrealNetwork.h"	// DOREPLIFETIME ªÁøÎ¿ª ¿ß«ÿ √ﬂ∞°
+#include "Net/UnrealNetwork.h"	// DOREPLIFETIME ÏÇ¨Ïö©ÏùÑ ÏúÑÌï¥ Ï∂îÍ∞Ä
 #include "Kismet/GameplayStatics.h"
 
 void ALobbyPlayerState::GetLifetimeReplicatedProps(TArray< FLifetimeProperty >& OutLifetimeProps) const
@@ -61,7 +61,7 @@ void ALobbyPlayerState::OnRep_LobbyUserName()
 
 
 //======================================================
-//=================== ªÁøÓµÂ √≥∏Æ ∞¸∑√ ===================
+//=================== ÏÇ¨Ïö¥Îìú Ï≤òÎ¶¨ Í¥ÄÎ†® ===================
 //======================================================
 float ALobbyPlayerState::ValidateVolume(float Volume)
 {

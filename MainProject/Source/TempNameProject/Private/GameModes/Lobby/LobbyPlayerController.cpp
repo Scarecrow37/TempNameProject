@@ -1,11 +1,13 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "GameModes/Lobby/LobbyPlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/AudioComponent.h"
+
 #include "GameModes/Lobby/LobbyPlayerState.h"
 #include "GameModes/MainGameInstance.h"
+
 #include "MainSoundWidget.h"
 #include "ChatPlugin/Public/ChatWidget.h"
 #include "Home/Public/LobbyRoomUserWidget.h"
@@ -35,17 +37,19 @@ void ALobbyPlayerController::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("IsLocalPlayerController False"));
 		return;
 	}
+	else
+	{
+		LobbyWidget = CreateWidget<ULobbyRoomUserWidget>(GetWorld(), LobbyWidgetClass);
+		LobbyWidget->AddToViewport();
+
+		ChatWidget = Cast<UChatWidget>(LobbyWidget->GetLobbyChatWidget());
+	}
 
 	APlayerController* Player0 = GetWorld()->GetFirstPlayerController();
 	if (!IsValid(Player0))
 	{
 		return;
 	}
-
-	LobbyWidget = CreateWidget<ULobbyRoomUserWidget>(GetWorld(), LobbyWidgetClass);
-	LobbyWidget->AddToViewport();
-
-	ChatWidget = Cast<UChatWidget>(LobbyWidget->GetChatWdiget());
 
 	Player0->SetInputMode(FInputModeUIOnly());
 	Player0->bShowMouseCursor = true;
@@ -137,7 +141,7 @@ void ALobbyPlayerController::OnUpdateUserName_Implementation(const FString& User
 
 
 //======================================================
-//=================== »ç¿îµå Ã³¸® °ü·Ã ===================
+//=================== ì‚¬ìš´ë“œ ì²˜ë¦¬ ê´€ë ¨ ===================
 //======================================================
 void ALobbyPlayerController::ApplyMasterVolume(float Volume)
 {
@@ -197,19 +201,19 @@ void ALobbyPlayerController::InitializeWidget()
 		float MusicVolume = PS->GetMusicVolume();
 		float SFXVolume = PS->GetSFXVolume();
 
-		UMainSoundWidget* US = CreateWidget<UMainSoundWidget>(GetWorld(), SoundWidgetClass);
-		if (!US)
+		SoundWidget = Cast<UMainSoundWidget>(LobbyWidget->GetLobbySoundWidget());
+		if (!SoundWidget)
 		{
 			GEngine->AddOnScreenDebugMessage(-1, 30.0f, FColor::White, TEXT("US Failed !"));
 			return;
 		}
-		US->OnChangedMasterVolume.AddDynamic(this, &ALobbyPlayerController::OnSetMasterVolume);
-		US->OnChangedMusicVolume.AddDynamic(this, &ALobbyPlayerController::OnSetMusicVolume);
-		US->OnChangedSFXVolume.AddDynamic(this, &ALobbyPlayerController::OnSetSFXVolume);
+		SoundWidget->OnChangedMasterVolume.AddDynamic(this, &ALobbyPlayerController::OnSetMasterVolume);
+		SoundWidget->OnChangedMusicVolume.AddDynamic(this, &ALobbyPlayerController::OnSetMusicVolume);
+		SoundWidget->OnChangedSFXVolume.AddDynamic(this, &ALobbyPlayerController::OnSetSFXVolume);
 
-		US->SetVolume(MasterVolume, MusicVolume, SFXVolume);
-		SoundWidget = US;
-		US->AddToViewport();
+		SoundWidget->SetVolume(MasterVolume, MusicVolume, SFXVolume);
+		SoundWidget = SoundWidget;
+		SoundWidget->AddToViewport();
 
 		return;
 	}
@@ -251,7 +255,7 @@ void ALobbyPlayerController::OnSetSFXVolume_Implementation(float Volume)
 
 
 //======================================================
-//====================== Ã¤ÆÃ °ü·Ã ======================
+//====================== ì±„íŒ… ê´€ë ¨ ======================
 //======================================================
 bool ALobbyPlayerController::C2S_SendMessage_Validate(const FString& InMessage)
 {

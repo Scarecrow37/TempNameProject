@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "GameModes/InGame/InGamePlayerState.h"
@@ -61,7 +61,7 @@ void AInGamePlayerState::OnRep_InGameUserName()
 
 
 //======================================================
-//=================== »ç¿îµå Ã³¸® °ü·Ã ===================
+//=================== ì‚¬ìš´ë“œ ì²˜ë¦¬ ê´€ë ¨ ===================
 //======================================================
 float AInGamePlayerState::ValidateVolume(float Volume)
 {

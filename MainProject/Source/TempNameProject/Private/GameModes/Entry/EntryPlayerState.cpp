@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "GameModes/Entry/EntryPlayerState.h"
@@ -62,7 +62,7 @@ void AEntryPlayerState::OnRep_EntryUserName()
 
 
 //======================================================
-//=================== »ç¿îµå Ã³¸® °ü·Ã ===================
+//=================== ì‚¬ìš´ë“œ ì²˜ë¦¬ ê´€ë ¨ ===================
 //======================================================
 float AEntryPlayerState::ValidateVolume(float Volume)
 {
