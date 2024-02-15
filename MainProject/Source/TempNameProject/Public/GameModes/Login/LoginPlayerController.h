@@ -46,6 +46,9 @@ private:
 	TScriptInterface<INicknameInterface> NicknameBox;
 
 	UFUNCTION()
+	void BindConnectRequest(const FText& ServerIP);
+
+	UFUNCTION()
 	void BindLoginRequest(const FText& ID, const FText& Password);
 	
 	UFUNCTION()
@@ -60,9 +63,14 @@ private:
 	UFUNCTION()
 	void BindOpenNextLevelRequest();
 
+	UFUNCTION(BlueprintCallable)
+	FString GetServerIp(const FText& IP);
+
 	void InitializeSocketBox();
 
 	void InitializeNicknameBox();
+	
+	bool CustomConnectServer(const FText& ServerIP);
 
 	FString Login(const FText& ID, const FText& Password);
 

@@ -57,7 +57,8 @@ bool UMainGameInstance::HostSession(TSharedPtr<const FUniqueNetId> UserId, FName
 			SessionSettings->bAllowJoinViaPresence = true;
 			SessionSettings->bAllowJoinViaPresenceFriendsOnly = false;
 
-			SessionSettings->Set(SETTING_MAPNAME, FString("LobbyLevel"), EOnlineDataAdvertisementType::ViaOnlineService);
+			FString Name;
+			SessionSettings->Set(TEXT("CustomServerName"), Name, EOnlineDataAdvertisementType::ViaOnlineServiceAndPing);
 
 			// Set the delegate to the Handle of the SessionInterface
 			OnCreateSessionCompleteDelegateHandle = Sessions->AddOnCreateSessionCompleteDelegate_Handle(OnCreateSessionCompleteDelegate);
@@ -98,7 +99,6 @@ void UMainGameInstance::OnCreateSessionComplete(FName SessionName, bool bWasSucc
 				Sessions->StartSession(SessionName);
 			}
 		}
-
 	}
 }
 
