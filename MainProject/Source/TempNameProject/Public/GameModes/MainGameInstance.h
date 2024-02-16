@@ -6,6 +6,7 @@
 #include "Engine/GameInstance.h"
 #include "Interfaces/SocketInterface.h"
 #include "Interfaces/NicknameInterface.h"
+#include "Templates/SharedPointer.h"
 #include "MainGameInstance.generated.h"
 
 /**

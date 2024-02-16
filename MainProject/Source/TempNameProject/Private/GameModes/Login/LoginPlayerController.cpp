@@ -23,8 +23,25 @@ void ALoginPlayerController::BeginPlay()
 	Super::BeginPlay();
 	InitializeSocketBox();
 	InitializeNicknameBox();
-	ConnectServer();
-	InitializeWidgets();
+	//ConnectServer();
+	//InitializeWidgets();
+
+	if (IsValid(LoginWidgetClass))
+	{
+		LoginWidget = TObjectPtr<ULoginPanel>(CreateWidget<ULoginPanel>(this, LoginWidgetClass, FName("LoginWidget")));
+		if (IsValid(LoginWidget)) {
+			LoginWidget->OnConnectRequested.AddDynamic(this, &ALoginPlayerController::BindConnectRequest);
+			FInputModeUIOnly InputMode;
+			InputMode.SetWidgetToFocus(LoginWidget->TakeWidget());
+			InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+			SetInputMode(InputMode);
+			LoginWidget->AddToViewport();
+		}
+	}
+	if (IsValid(CreateAccountWidgetClass))
+	{
+		CreateAccountWidget = TObjectPtr<UCreateAccountPanel>(CreateWidget<UCreateAccountPanel>(this, CreateAccountWidgetClass, FName("CreateWidget")));
+	}
 }
 
 void ALoginPlayerController::ConnectServer()
@@ -49,28 +66,41 @@ void ALoginPlayerController::InitializeWidgets()
 {
 	if (IsValid(LoginWidgetClass))
 	{
-		LoginWidget = TObjectPtr<ULoginPanel>(CreateWidget<ULoginPanel>(this, LoginWidgetClass, FName("LoginWidget")));
 		if (IsValid(LoginWidget))
 		{
 			LoginWidget->OnLoginRequested.AddDynamic(this, &ALoginPlayerController::BindLoginRequest);
 			LoginWidget->OnOpenCreateAccountPanelRequested.AddDynamic(this, &ALoginPlayerController::BindOpenCreateAccountRequest);
 			LoginWidget->OnOpenNextLevelRequested.AddDynamic(this, &ALoginPlayerController::BindOpenNextLevelRequest);
-			FInputModeUIOnly InputMode;
-			InputMode.SetWidgetToFocus(LoginWidget->TakeWidget());
-			InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
-			SetInputMode(InputMode);
-			LoginWidget->AddToViewport();
 		}
 	}
-
 	if (IsValid(CreateAccountWidgetClass))
 	{
-		CreateAccountWidget = TObjectPtr<UCreateAccountPanel>(CreateWidget<UCreateAccountPanel>(this, CreateAccountWidgetClass, FName("CreateWidget")));
 		if (IsValid(CreateAccountWidget))
 		{
 			CreateAccountWidget->OnCreateAccountRequested.AddDynamic(this, &ALoginPlayerController::BindCreateAccountRequest);
 			CreateAccountWidget->OnOpenLoginPanelRequested.AddDynamic(this, &ALoginPlayerController::BindOpenLoginRequest);
 		}
+	}
+}
+
+void ALoginPlayerController::BindConnectRequest(const FText& ServerIP)
+{
+	const bool bIsSuccess = CustomConnectServer(ServerIP);
+	if (!bIsConnected)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Server is disconnected."))
+		return;
+	}	
+	LoginWidget->StartLoading();
+	LoginWidget->StopLoading();
+	if (!bIsSuccess)
+	{
+		CreateAccountWidget->ShowFailMessage();
+	}
+	else
+	{
+		CreateAccountWidget->ShowSuccessMessage();
+		InitializeWidgets();
 	}
 }
 
@@ -133,6 +163,11 @@ void ALoginPlayerController::BindOpenNextLevelRequest()
 	UGameplayStatics::OpenLevelBySoftObjectPtr(GetWorld(), NextLevel);
 }
 
+FString ALoginPlayerController::GetServerIp(const FText& IP)
+{
+	return FString();
+}
+
 void ALoginPlayerController::InitializeSocketBox()
 {
 	SocketBox.SetInterface(Cast<ISocketInterface>(GetGameInstance()));
@@ -143,6 +178,26 @@ void ALoginPlayerController::InitializeNicknameBox()
 {
 	NicknameBox.SetInterface(Cast<INicknameInterface>(GetGameInstance()));
 	NicknameBox.SetObject(GetGameInstance());
+}
+
+bool ALoginPlayerController::CustomConnectServer(const FText& ServerIP)
+{
+	const TSharedPtr<FSocket> Socket = MakeShareable(
+		ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateSocket(TEXT("Stream"), TEXT("Client Socket")));
+	const FString AddressString = ServerIP.ToString();
+	FIPv4Address IP;
+	FIPv4Address::Parse(AddressString, IP);
+	constexpr int32 Port = 12345;
+	const TSharedRef<FInternetAddr> Address = ISocketSubsystem::Get(PLATFORM_SOCKETSUBSYSTEM)->CreateInternetAddr();
+	Address->SetIp(IP.Value);
+	Address->SetPort(Port);
+	bIsConnected = Socket->Connect(*Address);
+	if (bIsConnected)
+	{
+		SocketBox->SetSocket(Socket);
+		return true;
+	}
+	return false;
 }
 
 FString ALoginPlayerController::Login(const FText& ID, const FText& Password)

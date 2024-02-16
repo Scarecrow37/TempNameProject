@@ -63,7 +63,6 @@ void ALobbyPlayerController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Yellow, FString::Printf(TEXT("ALobbyPlayerController::OnPossess")));
 	ResponseClientPossess();
 }
 
@@ -86,26 +85,21 @@ void ALobbyPlayerController::RequestChangeUserName_Implementation(const FString&
 	ALobbyPlayerState* LobbyPS = Cast<ALobbyPlayerState>(PlayerState);
 	if (!IsValid(LobbyPS))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::White, FString::Printf(TEXT("ALobbyPlayerController::RequestChangeUserName Failed !!!")));
 		return;
 	}
 
 	LobbyPS->SetUserName(NewName);
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Yellow, FString::Printf(TEXT("ALobbyPlayerController::RequestChangeUserName = %s"), *NewName));
 }
 
 
 void ALobbyPlayerController::RequestUpdateUserList_Implementation()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("[ Request ] UpdateUserList_Implementation")));
 	ResponseUpdateUserList_Implementation();
 }
 
 
 void ALobbyPlayerController::ResponseUpdateUserList_Implementation()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("[ Response ] UpdateUserList_Implementation")));
-
 	ALobbyPlayerState* LobbyPlayerState = Cast<ALobbyPlayerState>(PlayerState);
 	LobbyPlayerState->OnRep_LobbyUserName();
 }
@@ -204,7 +198,6 @@ void ALobbyPlayerController::InitializeWidget()
 		SoundWidget = Cast<UMainSoundWidget>(LobbyWidget->GetLobbySoundWidget());
 		if (!SoundWidget)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 30.0f, FColor::White, TEXT("US Failed !"));
 			return;
 		}
 		SoundWidget->OnChangedMasterVolume.AddDynamic(this, &ALobbyPlayerController::OnSetMasterVolume);

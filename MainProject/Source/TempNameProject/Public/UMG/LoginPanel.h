@@ -7,6 +7,7 @@
 #include "LoginPanel.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnLoginRequestEvent, const FText&, ID, const FText&, Password);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnConnectRequestEvent, const FText&, ServerIP);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnOpenCreateAccountPanelRequestEvent);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnOpenNextLevelRequestEevent);
 
@@ -27,9 +28,18 @@ public:
 	UPROPERTY(BlueprintAssignable, Category="Button|Event")
 	FOnOpenNextLevelRequestEevent OnOpenNextLevelRequested;
 
+	UPROPERTY(BlueprintAssignable, Category = "Button|Event")
+	FOnConnectRequestEvent OnConnectRequested;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Widget", meta = (BindWidget))
+	TObjectPtr<ULabeledInput> ConnectIpWidget;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Widget", meta = (BindWIdget))
 	TObjectPtr<UButton> CreateAccountButton;
 	
+	UPROPERTY(EditDefaultsOnly, Category = "Widget", meta = (BindWIdget))
+	TObjectPtr<UButton> ConnectButton;
+
 	virtual void NativePreConstruct() override;
 
 private:
@@ -41,4 +51,7 @@ private:
 
 	UFUNCTION()
 	void BindCreateAccountClicked();
+
+	UFUNCTION()
+	void BindConnectClicked();
 };

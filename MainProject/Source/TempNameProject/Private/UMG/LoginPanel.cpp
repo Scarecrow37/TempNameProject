@@ -15,6 +15,10 @@ void ULoginPanel::NativePreConstruct()
 	{
 		CreateAccountButton->OnClicked.AddDynamic(this, &ULoginPanel::ULoginPanel::BindCreateAccountClicked);
 	}
+	if (IsValid(ConnectButton))
+	{
+		ConnectButton->OnClicked.AddDynamic(this, &ULoginPanel::BindConnectClicked);
+	}
 }
 
 void ULoginPanel::BindConfirmClicked()
@@ -33,6 +37,13 @@ void ULoginPanel::BindCloseSuccessMessage()
 void ULoginPanel::BindCloseFailMessage()
 {
 	FailMessageWidget.Get()->SetVisibility(ESlateVisibility::Collapsed);
+}
+
+void ULoginPanel::BindConnectClicked()
+{
+	const FText ServerIP = ConnectIpWidget->GetValue();
+
+	OnConnectRequested.Broadcast(ServerIP);
 }
 
 void ULoginPanel::BindCreateAccountClicked()
