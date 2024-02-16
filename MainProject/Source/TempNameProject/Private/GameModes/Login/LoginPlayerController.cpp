@@ -85,7 +85,6 @@ void ALoginPlayerController::InitializeWidgets()
 
 void ALoginPlayerController::BindConnectRequest(const FText& ServerIP)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Yellow, FString::Printf(TEXT("BindConnectRequest IP : %s"), *ServerIP.ToString()));
 	const bool bIsSuccess = CustomConnectServer(ServerIP);
 	if (!bIsConnected)
 	{
@@ -101,7 +100,6 @@ void ALoginPlayerController::BindConnectRequest(const FText& ServerIP)
 	else
 	{
 		CreateAccountWidget->ShowSuccessMessage();
-		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Yellow, FString::Printf(TEXT("InitializeWidgets Start")));
 		InitializeWidgets();
 	}
 }
@@ -196,7 +194,6 @@ bool ALoginPlayerController::CustomConnectServer(const FText& ServerIP)
 	bIsConnected = Socket->Connect(*Address);
 	if (bIsConnected)
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Yellow, FString::Printf(TEXT("CustomConnectServer bIsConnected")));
 		SocketBox->SetSocket(Socket);
 		return true;
 	}

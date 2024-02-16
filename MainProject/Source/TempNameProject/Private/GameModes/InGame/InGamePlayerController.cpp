@@ -74,8 +74,6 @@ void AInGamePlayerController::BeginPlay()
 
 	InitializeAudio();
 	InitializeWidget();
-
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("AInGamePlayerController::BeginPlay Done !!")));
 }
 
 
@@ -83,27 +81,22 @@ void AInGamePlayerController::RequestChangeUserName_Implementation(const FString
 {
 	AInGamePlayerState* InGamePS = Cast<AInGamePlayerState>(PlayerState);
 	if (!IsValid(InGamePS)) {
-		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Yellow, FString::Printf(TEXT("AInGamePlayerController::RequestChangeUserName InGamePS Failed !!")));
 		return;
 	}
 
 	InGamePS->SetUserName(NewName);
 	PlayerName = NewName;
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Yellow, FString::Printf(TEXT("AInGamePlayerController::RequestChangeUserName = %s"), *NewName));
 }
 
 
 void AInGamePlayerController::RequestUpdateUserList_Implementation()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("[ Request ] UpdateUserList_Implementation")));
 	ResponseUpdateUserList_Implementation();
 }
 
 
 void AInGamePlayerController::ResponseUpdateUserList_Implementation()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("[ Response ] UpdateUserList_Implementation")));
-
 	AInGamePlayerState* InGamePlayerState = Cast<AInGamePlayerState>(PlayerState);
 	InGamePlayerState->OnRep_InGameUserName();
 }
@@ -198,7 +191,6 @@ void AInGamePlayerController::InitializeWidget()
 		SoundWidget = Cast<UMainSoundWidget>(InGameWidget->GetInGameSoundWidget());
 		if (!SoundWidget)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 30.0f, FColor::White, TEXT("US Failed !"));
 			return;
 		}
 		SoundWidget->OnChangedMasterVolume.AddDynamic(this, &AInGamePlayerController::OnSetMasterVolume);

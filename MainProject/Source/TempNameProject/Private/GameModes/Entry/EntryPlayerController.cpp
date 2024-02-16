@@ -56,7 +56,6 @@ void AEntryPlayerController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Yellow, FString::Printf(TEXT("AEntryPlayerController::OnPossess")));
 	ResponseClientPossess();
 }
 
@@ -70,7 +69,6 @@ void AEntryPlayerController::ResponseClientPossess_Implementation()
 	AEntryPlayerState* EntryPS = Cast<AEntryPlayerState>(PlayerState);
 	if (!IsValid(EntryPS))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::White, FString::Printf(TEXT("AEntryPlayerController::RequestChangeUserName Failed !!!")));
 		return;
 	}
 
@@ -84,26 +82,21 @@ void AEntryPlayerController::RequestChangeUserName_Implementation(const FString&
 	AEntryPlayerState* EntryPS = Cast<AEntryPlayerState>(PlayerState);
 	if (!IsValid(EntryPS))
 	{
-		GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::White, FString::Printf(TEXT("AEntryPlayerController::RequestChangeUserName Failed !!!")));
 		return;
 	}
 
 	EntryPS->SetUserName(NewName);
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Yellow, FString::Printf(TEXT("AEntryPlayerController::RequestChangeUserName = %s"), *NewName));
 }
 
 
 void AEntryPlayerController::RequestUpdateUserList_Implementation()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("[ Request ] UpdateUserList_Implementation")));
 	ResponseUpdateUserList_Implementation();
 }
 
 
 void AEntryPlayerController::ResponseUpdateUserList_Implementation()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, FString::Printf(TEXT("[ Response ] UpdateUserList_Implementation")));
-
 	AEntryPlayerState* EntryPlayerState = Cast<AEntryPlayerState>(PlayerState);
 	EntryPlayerState->OnRep_EntryUserName();
 }
@@ -202,7 +195,6 @@ void AEntryPlayerController::InitializeWidget()
 		SoundWidget = Cast<UMainSoundWidget>(EntryWidget->GetEntrySoundWidget());
 		if (!SoundWidget)
 		{
-			GEngine->AddOnScreenDebugMessage(-1, 30.0f, FColor::White, TEXT("US Failed !"));
 			return;
 		};
 		SoundWidget->OnChangedMasterVolume.AddDynamic(this, &AEntryPlayerController::OnSetMasterVolume);

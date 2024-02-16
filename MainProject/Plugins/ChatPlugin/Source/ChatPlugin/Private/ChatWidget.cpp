@@ -46,15 +46,11 @@ void UChatWidget::AddMessage(const FString& InMessage)
 		UTextBlock* NewMessage = NewObject<UTextBlock>(ChatScrollBox);
 		if (NewMessage)
 		{
-			//GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Blue, FString::Printf(TEXT("Chat Input : %s"), *InMessage));
-
 			NewMessage->SetText(FText::FromString(InMessage));
 			FSlateFontInfo NewFont = NewMessage->GetFont();
 			NewFont.Size = 18;
 			//NewMessage->SetColorAndOpacity(FSlateColor(FLinearColor(255, 255, 255, 1)));
 			NewMessage->SetFont(NewFont);
-
-			GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Blue, FString::Printf(TEXT("Chat Input : %s"), *NewMessage->GetText().ToString()));
 
 			ChatScrollBox->AddChild(NewMessage);
 			ChatScrollBox->ScrollToEnd();
