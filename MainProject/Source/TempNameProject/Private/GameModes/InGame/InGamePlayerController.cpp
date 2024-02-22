@@ -39,7 +39,7 @@ void AInGamePlayerController::ResponseClientPossess_Implementation()
 	{
 		return;
 	}
-
+	
 	FString strName = Cast<UMainGameInstance>(GetGameInstance())->GetNickname();
 	RequestChangeUserName(strName);
 }
@@ -169,10 +169,10 @@ void AInGamePlayerController::InitializeAudio()
 	if (!IsValid(PS))
 		return;
 
-	UGameplayStatics::SetSoundMixClassOverride(this, SoundMix, SoundMusicClass, PS->GetMusicVolume(), 1.0f, 1.0f, true);
+	UGameplayStatics::SetSoundMixClassOverride(this, SoundMix, SoundMusicClass, PS->GetMusicVolume(), 0.0f, 1.0f, true);
 	UGameplayStatics::PushSoundMixModifier(this, SoundMix);
 
-	UGameplayStatics::SetSoundMixClassOverride(this, SoundMix, SoundSFXClass, PS->GetSFXVolume(), 1.0f, 1.0f, true);
+	UGameplayStatics::SetSoundMixClassOverride(this, SoundMix, SoundSFXClass, PS->GetSFXVolume(), 0.0f, 1.0f, true);
 	UGameplayStatics::PushSoundMixModifier(this, SoundMix);
 
 	BackgroundMusicComponent->SetVolumeMultiplier(1);
@@ -198,7 +198,6 @@ void AInGamePlayerController::InitializeWidget()
 		SoundWidget->OnChangedSFXVolume.AddDynamic(this, &AInGamePlayerController::OnSetSFXVolume);
 
 		SoundWidget->SetVolume(MasterVolume, MusicVolume, SFXVolume);
-		SoundWidget = SoundWidget;
 		SoundWidget->AddToViewport();
 
 		return;
