@@ -67,13 +67,10 @@ void AASJ_CharactersASFix::ClientInkShoot_Implementation()
 
 void AASJ_CharactersASFix::ServerInkShoot_Implementation()
 {
-	FActorSpawnParameters SpawnParams;
-	SpawnParams.Owner = this;
-	FTransform FT = UKismetMathLibrary::MakeTransform(
-		InkWeaponComponent->GetSocketLocation("Muzzle"),
-		GetController()->GetControlRotation());
+	/*InkAmmo = GetWorld()->SpawnActor<AActor>(*InkAmmoClass, InkWeaponComponent->GetSocketLocation("Muzzle"), GetController()->GetControlRotation());
+	InkAmmoArray.Add(InkAmmo);*/
+	//InkAmmoArray[0] = GetWorld()->SpawnActor<AActor>(*InkAmmoClass, InkWeaponComponent->GetSocketLocation("Muzzle"), GetController()->GetControlRotation());
 
-	InkAmmo = GetWorld()->SpawnActor<AActor>(*InkAmmoClass, InkWeaponComponent->GetSocketLocation("Muzzle"), GetController()->GetControlRotation());
 
 	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, TEXT("ServerInkShoot !!"));
 }
