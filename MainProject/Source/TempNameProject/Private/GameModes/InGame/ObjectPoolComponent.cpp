@@ -2,6 +2,8 @@
 
 
 #include "GameModes/InGame/ObjectPoolComponent.h"
+#include "GameFramework/ProjectileMovementComponent.h"
+#include "Camera/PlayerCameraManager.h"
 
 // Sets default values for this component's properties
 UObjectPoolComponent::UObjectPoolComponent()
@@ -35,6 +37,7 @@ void UObjectPoolComponent::BeginPlay()
 			for (int i = 0; i < PoolSize; i++)
 			{
 				APooledObject* PoolableActor = World->SpawnActor<APooledObject>(PooledObjectSubclass, FVector(0, 0, 130), FRotator().ZeroRotator);
+				//PoolableActor->SetActorEnableCollision(false);
 
 				if (PoolableActor != nullptr)
 				{
@@ -54,11 +57,14 @@ APooledObject* UObjectPoolComponent::SpawnPooledObject()
 	{
 		if (PoolableActor != nullptr && !PoolableActor->IsActive())
 		{
+			//PoolableActor->SetActorEnableCollision(false);
+
 			PoolableActor->TeleportTo(FVector(0, 0, 0), FRotator(0, 0, 0));
 			PoolableActor->SetLifeSpan(PooledObjectLifeSpan);
 			PoolableActor->SetAcitve(true);
 			SpawnedPoolIndexs.Add(PoolableActor->GetpPoolIndex());
 
+			//PoolableActor->SetActorEnableCollision(true);
 			return PoolableActor;
 		}
 	}
@@ -71,6 +77,7 @@ APooledObject* UObjectPoolComponent::SpawnPooledObject()
 
 		if (PoolableActor != nullptr)
 		{
+			//PoolableActor->SetActorEnableCollision(false);
 			PoolableActor->SetAcitve(false);
 
 			PoolableActor->TeleportTo(FVector(0, 0, 0), FRotator(0, 0, 0));
@@ -78,6 +85,7 @@ APooledObject* UObjectPoolComponent::SpawnPooledObject()
 			PoolableActor->SetAcitve(true);
 			SpawnedPoolIndexs.Add(PoolableActor->GetpPoolIndex());
 
+			//PoolableActor->SetActorEnableCollision(true);
 			return PoolableActor;
 		}
 	}
