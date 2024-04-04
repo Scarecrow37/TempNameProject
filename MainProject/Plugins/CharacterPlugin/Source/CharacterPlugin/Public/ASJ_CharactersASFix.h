@@ -14,6 +14,7 @@ class UInputAction;
 class UActorComponent;
 class USkeletalMesh;
 class USceneComponent;
+class UObjectPoolComponent;
 struct FInputActionValue;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
@@ -31,6 +32,9 @@ public:
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent* FollowCamera;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "PoolObject", meta = (AllowPrivateAccess = "true"))
+	UObjectPoolComponent* ObjectPoolComponent;
 
 	/** MappingContext */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
@@ -51,6 +55,7 @@ public:
 	/** Shoot Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	UInputAction* InkShootAction;
+
 
 public:
 	AASJ_CharactersASFix();
@@ -91,6 +96,7 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Weapon")
 	TArray<AActor*> InkAmmoArray;
+
 
 protected:
 	// APawn interface

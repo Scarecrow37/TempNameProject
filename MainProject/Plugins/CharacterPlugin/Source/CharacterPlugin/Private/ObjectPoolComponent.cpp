@@ -56,8 +56,6 @@ void UObjectPoolComponent::BeginPlay()
 	}
 }
 
-//PoolableActor->SetActorEnableCollision(false);
-
 
 // 의미 그대로 스폰에 필요한 함수로 이를 통해서 풀링 오브젝트를 소환(스폰)합니다.
 APooledObject* UObjectPoolComponent::SpawnPooledObject()

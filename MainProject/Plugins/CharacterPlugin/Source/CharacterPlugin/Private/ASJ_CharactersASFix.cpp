@@ -4,7 +4,9 @@
 #include "ASJ_CharactersASFix.h"
 #include "Engine/LocalPlayer.h"
 #include "Camera/CameraComponent.h"
+#include "Camera/PlayerCameraManager.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/DecalComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/Controller.h"
@@ -15,6 +17,10 @@
 #include "Engine/SkeletalMesh.h"
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "ObjectPoolComponent.h"
+#include "PooledObject.h"
+#include "BulletInk.h"
+#include "GameFramework/ProjectileMovementComponent.h"
 
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
@@ -56,8 +62,15 @@ AASJ_CharactersASFix::AASJ_CharactersASFix()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
+	ObjectPoolComponent = CreateDefaultSubobject<UObjectPoolComponent>(TEXT("PooledObject"));
+
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+}
+
+void AASJ_CharactersASFix::InkShoot(const FInputActionValue& Value)
+{
+	ClientInkShoot();
 }
 
 void AASJ_CharactersASFix::ClientInkShoot_Implementation()
@@ -67,12 +80,24 @@ void AASJ_CharactersASFix::ClientInkShoot_Implementation()
 
 void AASJ_CharactersASFix::ServerInkShoot_Implementation()
 {
-	/*InkAmmo = GetWorld()->SpawnActor<AActor>(*InkAmmoClass, InkWeaponComponent->GetSocketLocation("Muzzle"), GetController()->GetControlRotation());
-	InkAmmoArray.Add(InkAmmo);*/
-	//InkAmmoArray[0] = GetWorld()->SpawnActor<AActor>(*InkAmmoClass, InkWeaponComponent->GetSocketLocation("Muzzle"), GetController()->GetControlRotation());
-
-
 	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, TEXT("ServerInkShoot !!"));
+
+	//APooledObject* PoolObj = ObjectPoolComponent->SpawnPooledObject();
+	//APlayerCameraManager* CameraManager = Cast<APlayerCameraManager>(UGameplayStatics::GetPlayerCameraManager(GetWorld(), 0));
+	//
+	//PoolObj->SetActorLocation(InkWeaponComponent->GetSocketLocation(FName("Muzzle")));
+	//PoolObj->SetActorRotation(CameraManager->GetCameraRotation());
+
+	//ABulletInk* BulletInk = Cast<ABulletInk>(PoolObj);
+	//if (BulletInk != nullptr)
+	//{
+	//	UProjectileMovementComponent* ProMov = BulletInk->ProjectileMovementComponent;
+	//	ProMov->SetUpdatedComponent(BulletInk->SceneComponent);
+	//	ProMov->SetVelocityInLocalSpace(FVector(500, 0, 0));
+	//	BulletInk->StaticMeshComponent->SetCollisionProfileName(FName("Bullet"));
+	//	BulletInk->StaticMeshComponent->SetVisibility(true);
+	//	BulletInk->DecalComponent->SetVisibility(false);
+	//}
 }
 
 void AASJ_CharactersASFix::BeginPlay()
@@ -155,36 +180,6 @@ void AASJ_CharactersASFix::Look(const FInputActionValue& Value)
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
 }
-
-void AASJ_CharactersASFix::InkShoot(const FInputActionValue& Value)
-{
-	ClientInkShoot();
-}
-
-//void AASJ_CharactersASFix::MarkerSpawn()
-//{
-//	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, TEXT("attach !!"));
-//	
-//	// 무기 "Actor" 추가
-//	//InkWeapon = GetWorld()->SpawnActor<AActor>(AActor::StaticClass(), FVector::ZeroVector, FRotator::ZeroRotator);
-//
-//	// 무기 "스켈레탈 매시 컴포넌트" 추가 및 "스켈레탈 메시" 지정
-//	FTransform FT = UKismetMathLibrary::MakeTransform(FVector(0, 0, 0), FRotator(0, 0, 0), FVector(1, 1, 1));
-//	//InkWeapon->AddComponent(FName("Weapon"), true, FT, false);
-//
-//	UActorComponent* WeaponComponent = AddComponent(TEXT("WeaponComponent"), true, FT, USkeletalMeshComponent::StaticClass());
-//	//InkWeaponSKMeshComp->SetSkeletalMesh(WeaponComponent);
-//
-//	// 무기 컴포넌트를 최상위 
-//	//InkWeaponSKMeshComp->AttachToComponent(this->GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
-//
-//	// 캐릭터 매시의 특정 소켓에 부착
-//	InkWeaponScene = Cast<USkeletalMeshComponent>(WeaponComponent);
-//	InkWeaponScene->AttachToComponent(GetMesh(), FAttachmentTransformRules::SnapToTargetIncludingScale, TEXT("WeaponSocket"));
-//
-//	//InkWeaponSKMeshComp->RegisterComponent();
-//}
-
 
 void AASJ_CharactersASFix::MarkerSpawn()
 {

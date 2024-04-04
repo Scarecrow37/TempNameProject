@@ -15,7 +15,7 @@ int main()
     try
     {
         // Database Initialize
-        mySql.Connect("127.0.0.1", "root", "1234");
+        mySql.Connect("127.0.0.1", "root", "5213");
         mySql.SetSchema("game");
         mySql.InitializeStatements();
 

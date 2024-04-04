@@ -10,6 +10,12 @@
 // 델리게이트를 통해서 해당 객체가 소멸될 때 객체 풀에 알리기 위해서 델리게이트를 사용합니다.
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPooledObjectDespawn, APooledObject*, PoolActor);
 
+class UProjectileMovementComponent;
+class UDecalComponent;
+class USphereComponent;
+class UStaticMeshComponent;
+class USceneComponent;
+
 UCLASS()
 class CHARACTERPLUGIN_API APooledObject : public AActor
 {
@@ -34,6 +40,18 @@ public:
 
 	bool IsActive();
 	int GetpPoolIndex();
+
+	/*UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "PoolObject")
+	USceneComponent* SceneComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "PoolObject")
+	UDecalComponent* DecalComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "PoolObject")
+	UStaticMeshComponent* StaticMeshComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "PoolObject")
+	UProjectileMovementComponent* ProjectileMovementComponent;*/
 
 protected:
 	// Called when the game starts or when spawned

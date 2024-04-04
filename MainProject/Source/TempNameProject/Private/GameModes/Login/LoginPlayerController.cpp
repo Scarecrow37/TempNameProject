@@ -23,8 +23,8 @@ void ALoginPlayerController::BeginPlay()
 	Super::BeginPlay();
 	InitializeSocketBox();
 	InitializeNicknameBox();
-	//ConnectServer();
-	//InitializeWidgets();
+	ConnectServer();
+	InitializeWidgets();
 
 	if (IsValid(LoginWidgetClass))
 	{
