@@ -11,7 +11,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnPooledObjectDespawn, APooledObject*, PoolActor);
 
 UCLASS()
-class TEMPNAMEPROJECT_API APooledObject : public AActor
+class CHARACTERPLUGIN_API APooledObject : public AActor
 {
 	GENERATED_BODY()
 	

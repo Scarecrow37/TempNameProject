@@ -1,7 +1,7 @@
 ﻿// Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "GameModes/InGame/ObjectPoolComponent.h"
+#include "ObjectPoolComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Camera/PlayerCameraManager.h"
 

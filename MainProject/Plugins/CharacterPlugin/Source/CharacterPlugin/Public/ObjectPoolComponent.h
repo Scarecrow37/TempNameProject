@@ -9,7 +9,7 @@
 
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
-class TEMPNAMEPROJECT_API UObjectPoolComponent : public UActorComponent
+class CHARACTERPLUGIN_API UObjectPoolComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
