@@ -82,22 +82,23 @@ void AASJ_CharactersASFix::ServerInkShoot_Implementation()
 {
 	GEngine->AddOnScreenDebugMessage(-1, 3.0f, FColor::Red, TEXT("ServerInkShoot !!"));
 
-	//APooledObject* PoolObj = ObjectPoolComponent->SpawnPooledObject();
-	//APlayerCameraManager* CameraManager = Cast<APlayerCameraManager>(UGameplayStatics::GetPlayerCameraManager(GetWorld(), 0));
-	//
-	//PoolObj->SetActorLocation(InkWeaponComponent->GetSocketLocation(FName("Muzzle")));
-	//PoolObj->SetActorRotation(CameraManager->GetCameraRotation());
+	APooledObject* PoolObj = ObjectPoolComponent->SpawnPooledObject();
+	APlayerCameraManager* CameraManager = Cast<APlayerCameraManager>(UGameplayStatics::GetPlayerCameraManager(GetWorld(), 0));
+	
+	PoolObj->SetActorLocation(InkWeaponComponent->GetSocketLocation(FName("Muzzle")));
+	PoolObj->SetActorRotation(CameraManager->GetCameraRotation());
 
-	//ABulletInk* BulletInk = Cast<ABulletInk>(PoolObj);
-	//if (BulletInk != nullptr)
-	//{
-	//	UProjectileMovementComponent* ProMov = BulletInk->ProjectileMovementComponent;
-	//	ProMov->SetUpdatedComponent(BulletInk->SceneComponent);
-	//	ProMov->SetVelocityInLocalSpace(FVector(500, 0, 0));
-	//	BulletInk->StaticMeshComponent->SetCollisionProfileName(FName("Bullet"));
-	//	BulletInk->StaticMeshComponent->SetVisibility(true);
-	//	BulletInk->DecalComponent->SetVisibility(false);
-	//}
+	ABulletInk* BulletInk = Cast<ABulletInk>(PoolObj);
+	if (BulletInk != nullptr)
+	{
+		
+		UProjectileMovementComponent* ProMov = BulletInk->ProjectileMovementComponent;
+		ProMov->SetUpdatedComponent(BulletInk->SceneComponent);
+		ProMov->SetVelocityInLocalSpace(FVector(500, 0, 0));
+		//BulletInk->StaticMeshComponent->SetCollisionProfileName(FName("Bullet"));
+		BulletInk->StaticMeshComponent->SetVisibility(true);
+		BulletInk->DecalComponent->SetVisibility(false);
+	}
 }
 
 void AASJ_CharactersASFix::BeginPlay()
